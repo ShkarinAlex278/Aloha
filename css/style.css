@@ -1,0 +1,35 @@
+.logo {
+  display: flex;
+  width: 30%;
+  padding-left: 30px;
+  padding-top: 10px;
+  min-width: 30%;
+}
+
+.cart {
+  position: absolute;
+  display: flex;
+  width: 4%;
+  top: 20px;
+  right: 30px;
+}
+
+.menu {
+  position: absolute;
+  top: 10px;
+  width: 100%;
+}
+
+.menu ul {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+  padding: 35px 500px 10px 500px;
+  margin: 0px;
+  width: 25%;
+}
+
+.menu li {
+  color: #333333;
+  text-decoration: none;
+}
