@@ -1,35 +1,124 @@
+/* .container {
+  width: 100%;
+  height: 20px;
+} */
+
+body {
+  width: 100%;
+  padding: 10px;
+}
+
 .logo {
-  display: flex;
-  width: 30%;
-  padding-left: 30px;
-  padding-top: 10px;
-  min-width: 30%;
+  position: relative;
+  width: 12%;
+  padding-left: 20px;
 }
 
 .cart {
-  position: absolute;
-  display: flex;
   width: 4%;
-  top: 20px;
-  right: 30px;
+  position: absolute;
+  padding-left: 80%;
+  padding-top: 0px;
+  padding-right: 30px;
+  margin-top: 5px;
 }
 
 .menu {
-  position: absolute;
-  top: 10px;
   width: 100%;
+  position: absolute;
+  padding-top: 10px;
+  padding-bottom: 50px;
+
+  margin-top: -85px;
 }
 
 .menu ul {
   display: flex;
   justify-content: space-between;
   list-style-type: none;
-  padding: 35px 500px 10px 500px;
-  margin: 1px;
+  padding: 35px 10px 10px 500px;
+  margin: 0px;
   width: 25%;
 }
 
-.menu li {
-  color: #333333;
+.menu li a {
   text-decoration: none;
+  color: red;
+}
+
+/* 
+.shop-grid div.nth-child(2n) {
+  color: green;
+} */
+
+.hero-banner {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.33), rgba(0, 0, 0, 0.33)),
+    url("../images/banner-girl.png"), url(../images/flower-bkgd.jpg);
+  background-position: left, center 100px, center;
+  background-repeat: repeat, no-repeat, repeat;
+  background-size: cover, contain, contain;
+  /* opacity: 0.9; */
+}
+
+.head1 {
+  text-align: center;
+  width: 80%;
+  /* padding: 0px 200px 0px 200px; */
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding-left: 150px;
+}
+
+.head1 h2 {
+  font-size: 48px;
+}
+
+.head1 p {
+  font-size: 20px;
+  justify-content: space-between;
+}
+
+.men-category {
+  float: left;
+  width: 50%;
+  padding: 3px;
+  background-position: center;
+}
+
+.trend {
+  float: left;
+  width: 25%;
+  padding: 3px;
+}
+
+.glasses {
+  float: left;
+  width: 25%;
+  padding: 3px;
+}
+
+shop-grid::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* nav {
+  position: absolute;
+  z-index: -1;
+  background: rgba(155, 11, 11, 0.3);
+  width: 100%;
+} */
+
+.hero-banner p,
+.hero-banner h2 {
+  color: rgb(239, 242, 245);
+  text-align: center;
+}
+
+.hero-banner h2 {
+  font-size: 48px;
 }

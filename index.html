@@ -4,16 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script
+      src="https://kit.fontawesome.com/9db9453289.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" type="text/css" href="css/reset.css" />
     <link rel="stylesheet" type="text/css" href="css/style.css" />
+
     <title>Aloha Homepage</title>
   </head>
-  <body>
+  <body class="container">
     <header>
       <nav>
         <!-- Logo goes here -->
-        <div class="logo">
-          <img class="logo" src="/images/aloha-logo.svg" alt="Logo" />
-        </div>
+        <!-- <div class="logo"> -->
+        <img class="logo" src="/images/aloha-logo.svg" alt="Logo" />
+        <!-- </div> -->
         <div class="menu">
           <ul>
             <li><a href="#">ABOUT</a></li>
@@ -22,21 +28,21 @@
             <li><a href="#">UPDATES</a></li>
           </ul>
         </div>
-        <div class="cart">
-          <!-- Cart logo is here-->
-          <img src="/images/cart-icon.svg" alt="Cart logo" />
-        </div>
+        <!-- <div class="cart"> -->
+        <!-- Cart logo is here-->
+        <img class="cart" src="/images/cart-icon.svg" alt="Cart logo" />
+        <!-- </div> -->
       </nav>
     </header>
     <main>
       <!-- Main site content goes here-->
 
-      <section>
+      <section class="hero-banner">
         <!-- Hero section-->
         <p>New collection</p>
         <h2>Winter 2020</h2>
       </section>
-      <section>
+      <section class="head1">
         <!-- About-->
         <h2><em>Hand-Crafted</em> <strong>Styles</strong></h2>
         <p>
@@ -44,12 +50,37 @@
           Browes our current selection of products or sing-up for update below.
         </p>
       </section>
-      <section>
+      <section class="shop-grid">
         <!-- Shop grid-->
-        <div><span>MEN'S </span></div>
-        <div><span>TRENDS </span></div>
-        <div><span>GLASSES </span></div>
-        <div><span>SALE </span></div>
+        <div>
+          <span>
+            <!-- MEN'S -->
+            <img
+              class="men-category"
+              src="/images/mens-category.jpg"
+              ,
+              alt="Men gategory"
+          /></span>
+        </div>
+        <div>
+          <span>
+            <!-- TRENDS  -->
+            <img class="trend" src="/images/trends-category.jpg", alt="Trends"
+          </span>
+        </div>
+        <div>
+          <span>
+            <!-- GLASSES -->
+            <img
+              class="glasses"
+              src="/images/glasses-category.jpg"
+              ,
+              alt="Glasses"
+            />
+          </span>
+        </div>
+        <br />
+        <div><span class="sale" id="sale-title">SALE </span></div>
         <div><span>BAGS </span></div>
         <div><span>WOMEN'S </span></div>
       </section>
@@ -110,18 +141,23 @@
           &copy 2020 Aloha Apparel Co. <br />
           Powered using HTML and CSS
         </p>
-        <p>555-555-5555 email@gmail.com</p>
+        <p>
+          555-555-5555
+          <a href="mailto:info@alohaapparel.com">info@alohaapparel.com</a>
+        </p>
         <p>
           1490 W Broadway <br />
           Vancouver, BC, Canada
         </p>
       </div>
       <div>
-        <p>Fasebook</p>
-        <p>Tweeter</p>
-        <p>Instagramm</p>
-        <p>Pinterest</p>
-        <p>Google</p>
+        <ul>
+          <li><i class="fab fa-facebook-f"></i> Fasebook</li>
+          <li><i class="fab fa-twitter"></i> Tweeter</li>
+          <li><i class="fab fa-instagram"></i>Instagramm</li>
+          <li><i class="fab fa-pinterest"></i>Pinterest</li>
+          <li><i class="fab fa-google-plus-g"></i>Google</li>
+        </ul>
       </div>
     </footer>
   </body>
