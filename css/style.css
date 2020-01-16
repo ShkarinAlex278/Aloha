@@ -140,11 +140,59 @@ body {
   font-size: 48px;
 }
 
-footer {
+.mail {
+  position: relative;
   width: 100%;
-  margin: 1rem 0;
+  height: 400px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.53), rgba(0, 0, 0, 0.53)),
+    url("../images/wave-bkgd.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+}
+
+.mail img {
+  width: 0px;
+}
+
+footer {
+  background-color: black;
+  width: 100%;
+  margin: 5px 0;
   display: flex;
   justify-content: space-between;
+}
+
+.contact {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  align-content: flex-start;
+  color: white;
+  padding-left: 50px;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.fab fa-facebook-f {
+  color: white;
+}
+
+.media {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  align-content: flex-end;
+  padding-right: 100px;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.media li {
+  justify-content: space-around;
+  height: 13vh;
+  color: white;
 }
 
 /* .container {
