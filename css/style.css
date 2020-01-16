@@ -8,48 +8,46 @@ body {
   padding: 10px;
 }
 
-.logo {
-  position: relative;
-  width: 12%;
-  padding-left: 20px;
+.menu-all {
+  display: flex;
+  flex-wrap: wrap;
+  /* flex-direction: row-reverse; */
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  padding-left: 50px;
+  padding-right: 50px;
+  box-sizing: border-box;
 }
 
-.cart {
-  width: 4%;
-  position: absolute;
-  padding-left: 80%;
-  padding-top: 0px;
-  padding-right: 30px;
-  margin-top: 5px;
+.logo {
+  display: flex;
+  width: 150px;
 }
 
 .menu {
-  width: 100%;
-  position: absolute;
-  padding-top: 10px;
-  padding-bottom: 50px;
-
-  margin-top: -85px;
+  display: flex;
+  /* flex-direction: row;
+  justify-content: space-around; */
+  /* height: 300px; */
 }
 
 .menu ul {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   list-style-type: none;
-  padding: 35px 10px 10px 500px;
-  margin: 0px;
-  width: 25%;
 }
 
 .menu li a {
   text-decoration: none;
   color: red;
+  padding: 5px 20px;
 }
 
-/* 
-.shop-grid div.nth-child(2n) {
-  color: green;
-} */
+.cart img {
+  display: flex;
+  width: 50%;
+}
 
 .hero-banner {
   position: relative;
@@ -81,37 +79,56 @@ body {
   justify-content: space-between;
 }
 
+.shop-grid {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  box-sizing: border-box;
+  border: solid 1px;
+}
+
+.shop-grid img {
+  background-size: cover;
+  justify-content: flex-start;
+  align-content: space-between;
+  width: 100%;
+}
+
 .men-category {
-  float: left;
-  width: 50%;
-  padding: 3px;
-  background-position: center;
+  display: flex;
+  width: 600px;
+  padding: 6px 6px 6px 6px;
 }
 
 .trend {
-  float: left;
-  width: 25%;
-  padding: 3px;
+  display: flex;
+  width: 300px;
+  padding: 6px 6px 0px 0px;
 }
 
 .glasses {
-  float: left;
-  width: 25%;
-  padding: 3px;
+  display: flex;
+  width: 300px;
+  padding: 6px;
 }
 
-shop-grid::after {
-  content: "";
-  clear: both;
-  display: table;
+.sale {
+  display: flex;
+  width: 300px;
+  padding: 0px 6px 6px 6px;
 }
 
-/* nav {
-  position: absolute;
-  z-index: -1;
-  background: rgba(155, 11, 11, 0.3);
-  width: 100%;
-} */
+.bags {
+  display: flex;
+  width: 300px;
+  padding: 0px 6px 6px 6px;
+}
+
+.women {
+  display: flex;
+  width: 600px;
+  padding: 0px 6px 6px 6px;
+}
 
 .hero-banner p,
 .hero-banner h2 {
@@ -121,4 +138,30 @@ shop-grid::after {
 
 .hero-banner h2 {
   font-size: 48px;
+}
+
+footer {
+  width: 100%;
+  margin: 1rem 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* .container {
+  background: purple;
+} */
+
+@media screen and (min-widht: 600px) {
+  body {
+    background: green;
+  }
+  nav {
+    display: flex;
+  }
+}
+
+@media screen and (min-widht: 1240px) {
+  body {
+    background: blue;
+  }
 }
