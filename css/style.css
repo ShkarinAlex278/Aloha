@@ -66,6 +66,10 @@
   font-style: italic;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   width: 100%;
   padding: 10px;
@@ -304,6 +308,95 @@ h3 {
   font-size: 48px;
 }
 
+/* .figure-div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: row;
+  width: 100%;
+  align-content: space-between;
+  padding-bottom: 50px;
+  overflow-x: scroll;
+} */
+
+.figure-div {
+  width: 100%;
+  height: 300px;
+  padding-bottom: 40px;
+}
+
+/* .figure-StretchKnitDress {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 235px;
+  height: auto;
+  flex-direction: column;
+}
+
+.figure-BlueHipsterBackpack {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 235px;
+  height: auto;
+  flex-direction: column;
+}
+
+.figure-deminShorts {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 235px;
+  height: auto;
+  flex-direction: column;
+}
+
+.figure-PinkDottedDress {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 235px;
+  height: auto;
+  flex-direction: column;
+}
+
+.figure-CheckedStretchDress {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 235px;
+  height: auto;
+  flex-direction: column;
+}
+
+.figure-CottonBlueShirt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 235px;
+  height: auto;
+  flex-direction: column;
+}
+
+.figure-BlueSilkDress {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 235px;
+  height: auto;
+  flex-direction: column;
+}
+
+.figure-CottonYellowTShirt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 235px;
+  height: auto;
+  flex-direction: column;
+} */
+
 .mail {
   position: relative;
   background-image: linear-gradient(rgba(0, 0, 0, 0.13), rgba(0, 0, 0, 0.13)),
@@ -318,12 +411,34 @@ h3 {
   align-items: center;
   flex-direction: column;
 }
+
+input[type="email"] {
+  border: none;
+  width: 300px;
+  color: white;
+  padding: 1em 3em;
+  text-align: center;
+  font-size: 12px;
+  border-radius: 20px;
+}
+
+input[type="submit"] {
+  background-color: #f44336;
+  border: none;
+  color: white;
+  padding: 1em 3em;
+  text-align: center;
+  font-size: 12px;
+  border-radius: 20px;
+}
+
 /* .mail {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 } */
+
 footer {
   background-color: black;
   width: 100%;
@@ -360,16 +475,15 @@ footer {
 }
 
 .media ul {
-  width: 150px;
+  width: 120px;
+  align-content: center;
+  align-items: flex-start;
+  justify-content: space-evenly;
 }
 
 .media li {
   display: flex;
-  width: 100%;
-  justify-content: center;
-  align-items: flex-start;
-  justify-content: space-between;
-  height: 8vh;
+  height: 6vh;
   color: white;
   list-style-type: none;
 }
