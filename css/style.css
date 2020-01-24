@@ -74,6 +74,8 @@ body {
   width: 100%;
   padding: 10px;
   font-family: "Raleway Light";
+  font-size: 16px;
+  color: #2d2d2d;
 }
 
 h1,
@@ -91,12 +93,13 @@ h3 {
   text-align: center;
   padding-left: 50px;
   padding-right: 50px;
+  padding-bottom: 10px;
   box-sizing: border-box;
 }
 
 .logo {
   display: flex;
-  width: 150px;
+  width: 120px;
 }
 
 .menu {
@@ -111,13 +114,44 @@ h3 {
 
 .menu li a {
   text-decoration: none;
-  color: red;
+  color: #e2574c;
   padding: 5px 20px;
+  font-weight: 900;
 }
 
 .cart img {
   display: flex;
   width: 50%;
+}
+
+.newCollection {
+  /* text-align: center;
+  width: 100%;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding-left: 150px; */
+
+  width: 100%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: azure;
+  flex-direction: column;
+  align-content: space-between;
+  /* padding: 5px; */
+}
+
+.newCollection h2 {
+  font-size: 48px;
+  margin-top: -20px;
+  font-weight: 1000;
+  font-weight: normal;
+}
+
+.newCollection p {
+  font-size: 16px;
+  font-weight: 1000;
 }
 
 .hero-banner {
@@ -126,13 +160,13 @@ h3 {
   height: 400px;
   background-image: linear-gradient(rgba(0, 0, 0, 0.33), rgba(0, 0, 0, 0.33)),
     url("../images/banner-girl.png"), url("../images/flower-bkgd.jpg");
-  background-position: left, center 100px, center;
+  background-position: left, center 47px, center;
   background-repeat: repeat, no-repeat, repeat;
-  background-size: cover, contain, contain;
+  background-size: cover, 180px, contain;
   /* opacity: 0.9; */
 }
 
-.head1 {
+.head-Hand-Crafted {
   text-align: center;
   width: 80%;
   /* padding: 0px 200px 0px 200px; */
@@ -141,13 +175,20 @@ h3 {
   padding-left: 150px;
 }
 
-.head1 h2 {
+.head-Hand-Crafted h2 {
   font-size: 48px;
+  font-style: normal;
+  font-weight: 480;
+  margin-bottom: 0px;
+  margin-top: 0px;
 }
 
-.head1 p {
+.head-Hand-Crafted p {
   font-size: 20px;
   justify-content: space-between;
+  padding-left: 150px;
+  padding-right: 150px;
+  line-height: 30pt;
 }
 
 .shop-grid {
@@ -155,148 +196,118 @@ h3 {
   flex-wrap: wrap;
   flex-direction: row;
   box-sizing: border-box;
-  /* border: solid 1px; */
   align-content: flex-start;
   position: relative;
-  width: 1250;
+  width: 100%;
+  /* width: 1250; */
   height: 610px;
 }
 
-/*
-  background-image: url("../images/mens-category.jpg"),
-    url("../images/trends-category.jpg"), url("../images/glasses-category.jpg"); /*url("../images/sale-category.jpg"),
-    url("../images/bags-category.jpg"), url("../images/womens-category.jpg"); 
-  background-position: left, center 100px, right;
-  background-repeat: no-repeat, no-repeat, no-repeat;
-  background-size: contain, contain, contain;
-} */
-
-/* .shop-grid img {
-  background-size: cover;
-  justify-content: flex-start;
-  align-content: space-between;
-  width: 100%;
-} */
-
 .men-category {
   display: flex;
-  width: 600px;
-  height: 300px;
-  background-image: url("../images/mens-category.jpg");
-  background-repeat: no-repeat;
-  background-size: contain;
-  margin: 3px;
-}
-
-.head-men-category {
-  text-align: center;
-  /* width: 100%; */
-  display: flex;
-  width: 600px;
-  height: 300px;
-  color: white;
-  align-items: center;
+  flex-direction: row;
   justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  width: 624px;
+  height: 310px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url("../images/mens-category.jpg");
+  background-color: white;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-style: solid;
+  border-width: 3px;
 }
 
 .trend {
   display: flex;
-  width: 300px;
-  height: 300px;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.13), rgba(0, 0, 0, 0.13)),
-    url("../images/trends-category.jpg");
-  background-repeat: no-repeat;
-  background-size: contain;
-  margin: 3px;
-}
-
-.head-trend-category {
-  text-align: center;
-  width: 100%;
-  display: flex;
-  color: white;
-  align-items: center;
+  flex-direction: row;
   justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  width: 310px;
+  height: 310px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url("../images/trends-category.jpg");
+  background-color: white;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-style: solid;
+  /* border-width: 3px; */
+  /* border-width: 0px 0px 3px 0px; */
 }
 
 .glasses {
   display: flex;
-  width: 300px;
-  height: 300px;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.13), rgba(0, 0, 0, 0.13)),
-    url("../images/glasses-category.jpg");
-  background-repeat: no-repeat;
-  background-size: contain;
-  margin: 3px;
-}
-
-.head-glasses-category {
-  text-align: center;
-  width: 100%;
-  display: flex;
-  color: white;
-  align-items: center;
+  flex-direction: row;
   justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  width: 310px;
+  height: 310px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url("../images/glasses-category.jpg");
+  background-color: white;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-style: solid;
+  border-width: 3px;
+  /* border-width: 0px 0px 3px 0px; */
 }
 
 .sale {
   display: flex;
-  width: 300px;
-  height: 300px;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.13), rgba(0, 0, 0, 0.13)),
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  width: 310px;
+  height: 310px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
     url("../images/sale-category.jpg");
   background-repeat: no-repeat;
-  background-size: contain;
-  margin: 3px;
-}
-
-.head-sale-category {
-  text-align: center;
-  width: 100%;
-  display: flex;
-  color: white;
-  align-items: center;
-  justify-content: center;
+  background-size: cover;
+  border-style: solid;
+  border-width: 3px;
 }
 
 .bags {
   display: flex;
-  width: 300px;
-  height: 300px;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.13), rgba(0, 0, 0, 0.13)),
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  width: 310px;
+  height: 310px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
     url("../images/bags-category.jpg");
   background-repeat: no-repeat;
-  background-size: contain;
-  margin: 3px;
-}
-
-.head-bags-category {
-  text-align: center;
-  width: 100%;
-  display: flex;
-  color: white;
-  align-items: center;
-  justify-content: center;
+  background-size: cover;
+  border-style: solid;
+  border-width: 3px;
 }
 
 .women {
   display: flex;
-  width: 600px;
-  height: 300px;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.13), rgba(0, 0, 0, 0.13)),
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  width: 624px;
+  height: 310px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
     url("../images/womens-category.jpg");
   background-repeat: no-repeat;
-  background-size: contain;
-  margin: 3px;
-}
-
-.head-women-category {
-  text-align: center;
-  width: 100%;
-  display: flex;
-  color: white;
-  align-items: center;
-  justify-content: center;
+  background-size: cover;
+  border-style: solid;
+  border-width: 3px;
 }
 
 .hero-banner p,
@@ -315,6 +326,10 @@ h3 {
   font-size: 48px;
 }
 
+.MostLovesProducts {
+  font-weight: 480;
+}
+
 /* .figure-div {
   display: flex;
   justify-content: flex-start;
@@ -328,12 +343,15 @@ h3 {
 
 .figure-div {
   width: 100%;
-  height: 600px;
+  height: 580px;
 }
 
 .figure-id {
-  width: 240px;
-  height: auto;
+  display: flex;
+  flex-direction: column;
+  width: 260px;
+  height: 100%;
+  justify-content: space-between;
 }
 
 .figure-id img {
@@ -342,6 +360,8 @@ h3 {
   align-items: center;
   flex-direction: row;
   align-content: space-between;
+  padding: 0;
+  margin: 0;
 }
 
 .figure-id p {
@@ -349,7 +369,35 @@ h3 {
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #969696;
 }
+
+.figure-id h3 {
+  width: 240px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #e2574c;
+}
+
+.buttonToCart {
+  position: relative;
+  margin-left: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.83);
+  border: none;
+  font-weight: 505;
+  color: white;
+  width: 130px;
+  /* padding: 1em 2em, 2px, 3px, 50px; */
+  padding: 10px 5px;
+  text-align: center;
+  font-size: 16px;
+  border-radius: 27px;
+}
+
 /* FLALY START */
 
 /*! Flickity v2.2.1
@@ -500,91 +548,6 @@ https://flickity.metafizzy.co
 
 /* FLAKY END */
 
-/* .figure-StretchKnitDress {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 235px;
-  height: auto;
-  flex-direction: column;
-}
-
-.figure-BlueHipsterBackpack {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 235px;
-  height: auto;
-  flex-direction: column;
-}
-
-.figure-deminShorts {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 235px;
-  height: auto;
-  flex-direction: column;
-}
-
-.figure-PinkDottedDress {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 235px;
-  height: auto;
-  flex-direction: column;
-}
-
-.figure-CheckedStretchDress {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 235px;
-  height: auto;
-  flex-direction: column;
-}
-
-.figure-CottonBlueShirt {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 235px;
-  height: auto;
-  flex-direction: column;
-}
-
-.figure-BlueSilkDress {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 235px;
-  height: auto;
-  flex-direction: column;
-}
-
-.figure-CottonYellowTShirt {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 235px;
-  height: auto;
-  flex-direction: column;
-} */
-.buttonToCart {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.83);
-  border: none;
-  color: white;
-  /* padding: 1em 2em, 2px, 3px, 50px; */
-  padding: 10px 20px;
-  text-align: center;
-  font-size: 16px;
-  border-radius: 27px;
-}
-
 .mail {
   position: relative;
   background-image: linear-gradient(rgba(0, 0, 0, 0.13), rgba(0, 0, 0, 0.13)),
@@ -593,12 +556,29 @@ https://flickity.metafizzy.co
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
-  height: 285px;
+  height: 300px;
+  /* height: 285px; */
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   color: aliceblue;
+}
+
+.mail h2 {
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 480;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  margin-top: 50px;
+}
+
+.mail p {
+  margin-left: 340px;
+  margin-right: 340px;
+  text-align: center;
+  line-height: 30pt;
 }
 
 input[type="email"] {
@@ -608,10 +588,10 @@ input[type="email"] {
   border: none;
   width: 400px;
   height: 20px;
-  color: black;
+  color: #969696;
   padding: 1em 3em;
   text-align: left;
-  font-size: 12px;
+  font-size: 13px;
   border-radius: 23px;
 }
 
@@ -619,18 +599,17 @@ input[type="submit"] {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f44336;
+  background-color: #e2574c;
   border: none;
   color: white;
   padding: 1em 3em;
   text-align: center;
-  font-size: 12px;
+  font-size: 13px;
   border-radius: 20px;
-
   z-index: 1;
   position: relative;
-  right: -346px;
-  bottom: 41px;
+  right: -343px;
+  bottom: 44px;
 }
 
 /* .mail {
@@ -641,7 +620,7 @@ input[type="submit"] {
 } */
 
 footer {
-  background-color: black;
+  background-color: #242424;
   width: 100%;
   height: 250px;
   margin: 5px 0;
@@ -649,6 +628,7 @@ footer {
   justify-content: space-between;
 }
 .contact {
+  font-weight: 900;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -660,6 +640,11 @@ footer {
   /* padding-top: 50px;
   padding-bottom: 50px; */
 }
+
+.address {
+  color: #d7d7d7;
+}
+
 .contact text {
   text-align: left;
 }

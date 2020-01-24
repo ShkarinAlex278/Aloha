@@ -45,12 +45,12 @@
   
   // ----- utils ----- //
   
-  var arraySlice = Array.prototype.slice;
+  let arraySlice = Array.prototype.slice;
   
   // helper function for logging errors
   // $.error breaks jQuery chaining
-  var console = window.console;
-  var logError = typeof console == 'undefined' ? function() {} :
+  let console = window.console;
+  let logError = typeof console == 'undefined' ? function() {} :
     function( message ) {
       console.error( message );
     };
@@ -80,7 +80,7 @@
       if ( typeof arg0 == 'string' ) {
         // method call $().plugin( 'methodName', { options } )
         // shift arguments by 1
-        var args = arraySlice.call( arguments, 1 );
+        let args = arraySlice.call( arguments, 1 );
         return methodCall( this, arg0, args );
       }
       // just $().plugin({ options })
@@ -90,26 +90,26 @@
   
     // $().plugin('methodName')
     function methodCall( $elems, methodName, args ) {
-      var returnValue;
-      var pluginMethodStr = '$().' + namespace + '("' + methodName + '")';
+      let returnValue;
+      let pluginMethodStr = '$().' + namespace + '("' + methodName + '")';
   
       $elems.each( function( i, elem ) {
         // get instance
-        var instance = $.data( elem, namespace );
+        let instance = $.data( elem, namespace );
         if ( !instance ) {
           logError( namespace + ' not initialized. Cannot call methods, i.e. ' +
             pluginMethodStr );
           return;
         }
   
-        var method = instance[ methodName ];
+        let method = instance[ methodName ];
         if ( !method || methodName.charAt(0) == '_' ) {
           logError( pluginMethodStr + ' is not a valid method' );
           return;
         }
   
         // apply method, get return value
-        var value = method.apply( instance, args );
+        let value = method.apply( instance, args );
         // set return value if value is returned, use only first value
         returnValue = returnValue === undefined ? value : returnValue;
       });
@@ -119,7 +119,7 @@
   
     function plainCall( $elems, options ) {
       $elems.each( function( i, elem ) {
-        var instance = $.data( elem, namespace );
+        let instance = $.data( elem, namespace );
         if ( instance ) {
           // set options & init
           instance.option( options );
@@ -182,16 +182,16 @@
   
   function EvEmitter() {}
   
-  var proto = EvEmitter.prototype;
+  let proto = EvEmitter.prototype;
   
   proto.on = function( eventName, listener ) {
     if ( !eventName || !listener ) {
       return;
     }
     // set events hash
-    var events = this._events = this._events || {};
+    let events = this._events = this._events || {};
     // set listeners array
-    var listeners = events[ eventName ] = events[ eventName ] || [];
+    let listeners = events[ eventName ] = events[ eventName ] || [];
     // only add once
     if ( listeners.indexOf( listener ) == -1 ) {
       listeners.push( listener );
@@ -208,9 +208,9 @@
     this.on( eventName, listener );
     // set once flag
     // set onceEvents hash
-    var onceEvents = this._onceEvents = this._onceEvents || {};
+    let onceEvents = this._onceEvents = this._onceEvents || {};
     // set onceListeners object
-    var onceListeners = onceEvents[ eventName ] = onceEvents[ eventName ] || {};
+    let onceListeners = onceEvents[ eventName ] = onceEvents[ eventName ] || {};
     // set flag
     onceListeners[ listener ] = true;
   
@@ -218,11 +218,11 @@
   };
   
   proto.off = function( eventName, listener ) {
-    var listeners = this._events && this._events[ eventName ];
+    let listeners = this._events && this._events[ eventName ];
     if ( !listeners || !listeners.length ) {
       return;
     }
-    var index = listeners.indexOf( listener );
+    let index = listeners.indexOf( listener );
     if ( index != -1 ) {
       listeners.splice( index, 1 );
     }
@@ -231,7 +231,7 @@
   };
   
   proto.emitEvent = function( eventName, args ) {
-    var listeners = this._events && this._events[ eventName ];
+    let listeners = this._events && this._events[ eventName ];
     if ( !listeners || !listeners.length ) {
       return;
     }
@@ -239,11 +239,11 @@
     listeners = listeners.slice(0);
     args = args || [];
     // once stuff
-    var onceListeners = this._onceEvents && this._onceEvents[ eventName ];
+    let onceListeners = this._onceEvents && this._onceEvents[ eventName ];
   
-    for ( var i=0; i < listeners.length; i++ ) {
-      var listener = listeners[i]
-      var isOnce = onceListeners && onceListeners[ listener ];
+    for ( let i=0; i < listeners.length; i++ ) {
+      let listener = listeners[i]
+      let isOnce = onceListeners && onceListeners[ listener ];
       if ( isOnce ) {
         // remove listener
         // remove before trigger to prevent recursion
@@ -296,22 +296,22 @@
   
   // get a number from a string, not a percentage
   function getStyleSize( value ) {
-    var num = parseFloat( value );
+    let num = parseFloat( value );
     // not a percent like '100%', and a number
-    var isValid = value.indexOf('%') == -1 && !isNaN( num );
+    let isValid = value.indexOf('%') == -1 && !isNaN( num );
     return isValid && num;
   }
   
   function noop() {}
   
-  var logError = typeof console == 'undefined' ? noop :
+  let logError = typeof console == 'undefined' ? noop :
     function( message ) {
       console.error( message );
     };
   
   // -------------------------- measurements -------------------------- //
   
-  var measurements = [
+  let measurements = [
     'paddingLeft',
     'paddingRight',
     'paddingTop',
@@ -326,10 +326,10 @@
     'borderBottomWidth'
   ];
   
-  var measurementsLength = measurements.length;
+  let measurementsLength = measurements.length;
   
   function getZeroSize() {
-    var size = {
+    let size = {
       width: 0,
       height: 0,
       innerWidth: 0,
@@ -337,8 +337,8 @@
       outerWidth: 0,
       outerHeight: 0
     };
-    for ( var i=0; i < measurementsLength; i++ ) {
-      var measurement = measurements[i];
+    for ( let i=0; i < measurementsLength; i++ ) {
+      let measurement = measurements[i];
       size[ measurement ] = 0;
     }
     return size;
@@ -351,7 +351,7 @@
    * https://bugzilla.mozilla.org/show_bug.cgi?id=548397
    */
   function getStyle( elem ) {
-    var style = getComputedStyle( elem );
+    let style = getComputedStyle( elem );
     if ( !style ) {
       logError( 'Style returned ' + style +
         '. Are you running this code in a hidden iframe on Firefox? ' +
@@ -362,9 +362,9 @@
   
   // -------------------------- setup -------------------------- //
   
-  var isSetup = false;
+  let isSetup = false;
   
-  var isBoxSizeOuter;
+  let isBoxSizeOuter;
   
   /**
    * setup
@@ -384,16 +384,16 @@
      * Chrome & Safari measure the outer-width on style.width on border-box elems
      * IE11 & Firefox<29 measures the inner-width
      */
-    var div = document.createElement('div');
+    let div = document.createElement('div');
     div.style.width = '200px';
     div.style.padding = '1px 2px 3px 4px';
     div.style.borderStyle = 'solid';
     div.style.borderWidth = '1px 2px 3px 4px';
     div.style.boxSizing = 'border-box';
   
-    var body = document.body || document.documentElement;
+    let body = document.body || document.documentElement;
     body.appendChild( div );
-    var style = getStyle( div );
+    let style = getStyle( div );
     // round value for browser zoom. desandro/masonry#928
     isBoxSizeOuter = Math.round( getStyleSize( style.width ) ) == 200;
     getSize.isBoxSizeOuter = isBoxSizeOuter;
@@ -416,46 +416,46 @@
       return;
     }
   
-    var style = getStyle( elem );
+    let style = getStyle( elem );
   
     // if hidden, everything is 0
     if ( style.display == 'none' ) {
       return getZeroSize();
     }
   
-    var size = {};
+    let size = {};
     size.width = elem.offsetWidth;
     size.height = elem.offsetHeight;
   
-    var isBorderBox = size.isBorderBox = style.boxSizing == 'border-box';
+    let isBorderBox = size.isBorderBox = style.boxSizing == 'border-box';
   
     // get all measurements
-    for ( var i=0; i < measurementsLength; i++ ) {
-      var measurement = measurements[i];
-      var value = style[ measurement ];
-      var num = parseFloat( value );
+    for ( let i=0; i < measurementsLength; i++ ) {
+      let measurement = measurements[i];
+      let value = style[ measurement ];
+      let num = parseFloat( value );
       // any 'auto', 'medium' value will be 0
       size[ measurement ] = !isNaN( num ) ? num : 0;
     }
   
-    var paddingWidth = size.paddingLeft + size.paddingRight;
-    var paddingHeight = size.paddingTop + size.paddingBottom;
-    var marginWidth = size.marginLeft + size.marginRight;
-    var marginHeight = size.marginTop + size.marginBottom;
-    var borderWidth = size.borderLeftWidth + size.borderRightWidth;
-    var borderHeight = size.borderTopWidth + size.borderBottomWidth;
+    let paddingWidth = size.paddingLeft + size.paddingRight;
+    let paddingHeight = size.paddingTop + size.paddingBottom;
+    let marginWidth = size.marginLeft + size.marginRight;
+    let marginHeight = size.marginTop + size.marginBottom;
+    let borderWidth = size.borderLeftWidth + size.borderRightWidth;
+    let borderHeight = size.borderTopWidth + size.borderBottomWidth;
   
-    var isBorderBoxSizeOuter = isBorderBox && isBoxSizeOuter;
+    let isBorderBoxSizeOuter = isBorderBox && isBoxSizeOuter;
   
     // overwrite width and height if we can get it from style
-    var styleWidth = getStyleSize( style.width );
+    let styleWidth = getStyleSize( style.width );
     if ( styleWidth !== false ) {
       size.width = styleWidth +
         // add padding and border unless it's already including it
         ( isBorderBoxSizeOuter ? 0 : paddingWidth + borderWidth );
     }
   
-    var styleHeight = getStyleSize( style.height );
+    let styleHeight = getStyleSize( style.height );
     if ( styleHeight !== false ) {
       size.height = styleHeight +
         // add padding and border unless it's already including it
@@ -501,8 +501,8 @@
   }( window, function factory() {
     'use strict';
   
-    var matchesMethod = ( function() {
-      var ElemProto = window.Element.prototype;
+    let matchesMethod = ( function() {
+      let ElemProto = window.Element.prototype;
       // check for the standard method name first
       if ( ElemProto.matches ) {
         return 'matches';
@@ -512,11 +512,11 @@
         return 'matchesSelector';
       }
       // check vendor prefixes
-      var prefixes = [ 'webkit', 'moz', 'ms', 'o' ];
+      let prefixes = [ 'webkit', 'moz', 'ms', 'o' ];
   
-      for ( var i=0; i < prefixes.length; i++ ) {
-        var prefix = prefixes[i];
-        var method = prefix + 'MatchesSelector';
+      for ( let i=0; i < prefixes.length; i++ ) {
+        let prefix = prefixes[i];
+        let method = prefix + 'MatchesSelector';
         if ( ElemProto[ method ] ) {
           return method;
         }
@@ -565,13 +565,13 @@
   
   
   
-  var utils = {};
+  let utils = {};
   
   // ----- extend ----- //
   
   // extends objects
   utils.extend = function( a, b ) {
-    for ( var prop in b ) {
+    for ( let prop in b ) {
       a[ prop ] = b[ prop ];
     }
     return a;
@@ -585,7 +585,7 @@
   
   // ----- makeArray ----- //
   
-  var arraySlice = Array.prototype.slice;
+  let arraySlice = Array.prototype.slice;
   
   // turn element or nodeList into an array
   utils.makeArray = function( obj ) {
@@ -598,7 +598,7 @@
       return [];
     }
   
-    var isArrayLike = typeof obj == 'object' && typeof obj.length == 'number';
+    let isArrayLike = typeof obj == 'object' && typeof obj.length == 'number';
     if ( isArrayLike ) {
       // convert nodeList to array
       return arraySlice.call( obj );
@@ -611,7 +611,7 @@
   // ----- removeFrom ----- //
   
   utils.removeFrom = function( ary, obj ) {
-    var index = ary.indexOf( obj );
+    let index = ary.indexOf( obj );
     if ( index != -1 ) {
       ary.splice( index, 1 );
     }
@@ -642,7 +642,7 @@
   
   // enable .ontype to trigger from .addEventListener( elem, 'type' )
   utils.handleEvent = function( event ) {
-    var method = 'on' + event.type;
+    let method = 'on' + event.type;
     if ( this[ method ] ) {
       this[ method ]( event );
     }
@@ -653,7 +653,7 @@
   utils.filterFindElements = function( elems, selector ) {
     // make array of elems
     elems = utils.makeArray( elems );
-    var ffElems = [];
+    let ffElems = [];
   
     elems.forEach( function( elem ) {
       // check that elem is an actual element
@@ -671,9 +671,9 @@
         ffElems.push( elem );
       }
       // find children
-      var childElems = elem.querySelectorAll( selector );
+      let childElems = elem.querySelectorAll( selector );
       // concat childElems to filterFound array
-      for ( var i=0; i < childElems.length; i++ ) {
+      for ( let i=0; i < childElems.length; i++ ) {
         ffElems.push( childElems[i] );
       }
     });
@@ -686,15 +686,15 @@
   utils.debounceMethod = function( _class, methodName, threshold ) {
     threshold = threshold || 100;
     // original method
-    var method = _class.prototype[ methodName ];
-    var timeoutName = methodName + 'Timeout';
+    let method = _class.prototype[ methodName ];
+    let timeoutName = methodName + 'Timeout';
   
     _class.prototype[ methodName ] = function() {
-      var timeout = this[ timeoutName ];
+      let timeout = this[ timeoutName ];
       clearTimeout( timeout );
   
-      var args = arguments;
-      var _this = this;
+      let args = arguments;
+      let _this = this;
       this[ timeoutName ] = setTimeout( function() {
         method.apply( _this, args );
         delete _this[ timeoutName ];
@@ -705,7 +705,7 @@
   // ----- docReady ----- //
   
   utils.docReady = function( callback ) {
-    var readyState = document.readyState;
+    let readyState = document.readyState;
     if ( readyState == 'complete' || readyState == 'interactive' ) {
       // do async to allow for other scripts to run. metafizzy/flickity#441
       setTimeout( callback );
@@ -723,7 +723,7 @@
     }).toLowerCase();
   };
   
-  var console = window.console;
+  let console = window.console;
   /**
    * allow user to initialize classes via [data-namespace] or .js-namespace class
    * htmlInit( Widget, 'widgetName' )
@@ -731,19 +731,19 @@
    */
   utils.htmlInit = function( WidgetClass, namespace ) {
     utils.docReady( function() {
-      var dashedNamespace = utils.toDashed( namespace );
-      var dataAttr = 'data-' + dashedNamespace;
-      var dataAttrElems = document.querySelectorAll( '[' + dataAttr + ']' );
-      var jsDashElems = document.querySelectorAll( '.js-' + dashedNamespace );
-      var elems = utils.makeArray( dataAttrElems )
+      let dashedNamespace = utils.toDashed( namespace );
+      let dataAttr = 'data-' + dashedNamespace;
+      let dataAttrElems = document.querySelectorAll( '[' + dataAttr + ']' );
+      let jsDashElems = document.querySelectorAll( '.js-' + dashedNamespace );
+      let elems = utils.makeArray( dataAttrElems )
         .concat( utils.makeArray( jsDashElems ) );
-      var dataOptionsAttr = dataAttr + '-options';
-      var jQuery = window.jQuery;
+      let dataOptionsAttr = dataAttr + '-options';
+      let jQuery = window.jQuery;
   
       elems.forEach( function( elem ) {
-        var attr = elem.getAttribute( dataAttr ) ||
+        let attr = elem.getAttribute( dataAttr ) ||
           elem.getAttribute( dataOptionsAttr );
-        var options;
+        let options;
         try {
           options = attr && JSON.parse( attr );
         } catch ( error ) {
@@ -755,7 +755,7 @@
           return;
         }
         // initialize
-        var instance = new WidgetClass( elem, options );
+        let instance = new WidgetClass( elem, options );
         // make available via $().data('namespace')
         if ( jQuery ) {
           jQuery.data( elem, namespace, instance );
@@ -808,7 +808,7 @@
     this.create();
   }
   
-  var proto = Cell.prototype;
+  let proto = Cell.prototype;
   
   proto.create = function() {
     this.element.style.position = 'absolute';
@@ -821,7 +821,7 @@
     // reset style
     this.unselect();
     this.element.style.position = '';
-    var side = this.parent.originSide;
+    let side = this.parent.originSide;
     this.element.style[ side ] = '';
   };
   
@@ -837,14 +837,14 @@
   
   // setDefaultTarget v1 method, backwards compatibility, remove in v3
   proto.updateTarget = proto.setDefaultTarget = function() {
-    var marginProperty = this.parent.originSide == 'left' ? 'marginLeft' : 'marginRight';
+    let marginProperty = this.parent.originSide == 'left' ? 'marginLeft' : 'marginRight';
     this.target = this.x + this.size[ marginProperty ] +
       this.size.width * this.parent.cellAlign;
   };
   
   proto.renderPosition = function( x ) {
     // render position of cell with in slider
-    var side = this.parent.originSide;
+    let side = this.parent.originSide;
     this.element.style[ side ] = this.parent.getPositionValue( x );
   };
   
@@ -901,7 +901,7 @@
     this.height = 0;
   }
   
-  var proto = Slide.prototype;
+  let proto = Slide.prototype;
   
   proto.addCell = function( cell ) {
     this.cells.push( cell );
@@ -910,16 +910,16 @@
     // first cell stuff
     if ( this.cells.length == 1 ) {
       this.x = cell.x; // x comes from first cell
-      var beginMargin = this.isOriginLeft ? 'marginLeft' : 'marginRight';
+      let beginMargin = this.isOriginLeft ? 'marginLeft' : 'marginRight';
       this.firstMargin = cell.size[ beginMargin ];
     }
   };
   
   proto.updateTarget = function() {
-    var endMargin = this.isOriginLeft ? 'marginRight' : 'marginLeft';
-    var lastCell = this.getLastCell();
-    var lastMargin = lastCell ? lastCell.size[ endMargin ] : 0;
-    var slideWidth = this.outerWidth - ( this.firstMargin + lastMargin );
+    let endMargin = this.isOriginLeft ? 'marginRight' : 'marginLeft';
+    let lastCell = this.getLastCell();
+    let lastMargin = lastCell ? lastCell.size[ endMargin ] : 0;
+    let slideWidth = this.outerWidth - ( this.firstMargin + lastMargin );
     this.target = this.x + this.firstMargin + slideWidth * this.parent.cellAlign;
   };
   
@@ -981,7 +981,7 @@
   
   // -------------------------- animate -------------------------- //
   
-  var proto = {};
+  let proto = {};
   
   proto.startAnimation = function() {
     if ( this.isAnimating ) {
@@ -997,14 +997,14 @@
     this.applyDragForce();
     this.applySelectedAttraction();
   
-    var previousX = this.x;
+    let previousX = this.x;
   
     this.integratePhysics();
     this.positionSlider();
     this.settle( previousX );
     // animate next frame
     if ( this.isAnimating ) {
-      var _this = this;
+      let _this = this;
       requestAnimationFrame( function animateFrame() {
         _this.animate();
       });
@@ -1012,7 +1012,7 @@
   };
   
   proto.positionSlider = function() {
-    var x = this.x;
+    let x = this.x;
     // wrap position around
     if ( this.options.wrapAround && this.cells.length > 1 ) {
       x = utils.modulo( x, this.slideableWidth );
@@ -1028,7 +1028,7 @@
     x += this.cursorPosition;
     // reverse if right-to-left and using transform
     x = this.options.rightToLeft ? -x : x;
-    var translateX = this.getPositionValue( x );
+    let translateX = this.getPositionValue( x );
     // use 3D tranforms for hardware acceleration on iOS
     // but use 2D when settled, for better font-rendering
     this.slider.style.transform = is3d ?
@@ -1036,12 +1036,12 @@
   };
   
   proto.dispatchScrollEvent = function() {
-    var firstSlide = this.slides[0];
+    let firstSlide = this.slides[0];
     if ( !firstSlide ) {
       return;
     }
-    var positionX = -this.x - firstSlide.target;
-    var progress = positionX / this.slidesWidth;
+    let positionX = -this.x - firstSlide.target;
+    let progress = positionX / this.slidesWidth;
     this.dispatchEvent( 'scroll', null, [ progress, positionX ] );
   };
   
@@ -1081,17 +1081,17 @@
   
   proto.shiftWrapCells = function( x ) {
     // shift before cells
-    var beforeGap = this.cursorPosition + x;
+    let beforeGap = this.cursorPosition + x;
     this._shiftCells( this.beforeShiftCells, beforeGap, -1 );
     // shift after cells
-    var afterGap = this.size.innerWidth - ( x + this.slideableWidth + this.cursorPosition );
+    let afterGap = this.size.innerWidth - ( x + this.slideableWidth + this.cursorPosition );
     this._shiftCells( this.afterShiftCells, afterGap, 1 );
   };
   
   proto._shiftCells = function( cells, gap, shift ) {
-    for ( var i=0; i < cells.length; i++ ) {
-      var cell = cells[i];
-      var cellShift = gap > 0 ? shift : 0;
+    for ( let i=0; i < cells.length; i++ ) {
+      let cell = cells[i];
+      let cellShift = gap > 0 ? shift : 0;
       cell.wrapShift( cellShift );
       gap -= cell.size.outerWidth;
     }
@@ -1101,7 +1101,7 @@
     if ( !cells || !cells.length ) {
       return;
     }
-    for ( var i=0; i < cells.length; i++ ) {
+    for ( let i=0; i < cells.length; i++ ) {
       cells[i].wrapShift( 0 );
     }
   };
@@ -1131,19 +1131,19 @@
       return;
     }
     // change the position to drag position by applying force
-    var dragVelocity = this.dragX - this.x;
-    var dragForce = dragVelocity - this.velocity;
+    let dragVelocity = this.dragX - this.x;
+    let dragForce = dragVelocity - this.velocity;
     this.applyForce( dragForce );
   };
   
   proto.applySelectedAttraction = function() {
     // do not attract if pointer down or no slides
-    var dragDown = this.isDraggable && this.isPointerDown;
+    let dragDown = this.isDraggable && this.isPointerDown;
     if ( dragDown || this.isFreeScrolling || !this.slides.length ) {
       return;
     }
-    var distance = this.selectedSlide.target * -1 - this.x;
-    var force = distance * this.options.selectedAttraction;
+    let distance = this.selectedSlide.target * -1 - this.x;
+    let force = distance * this.options.selectedAttraction;
     this.applyForce( force );
   };
   
@@ -1180,7 +1180,7 @@
       );
     } else {
       // browser global
-      var _Flickity = window.Flickity;
+      let _Flickity = window.Flickity;
   
       window.Flickity = factory(
         window,
@@ -1198,10 +1198,10 @@
   
   
   
-  // vars
-  var jQuery = window.jQuery;
-  var getComputedStyle = window.getComputedStyle;
-  var console = window.console;
+  // lets
+  let jQuery = window.jQuery;
+  let getComputedStyle = window.getComputedStyle;
+  let console = window.console;
   
   function moveElements( elems, toElem ) {
     elems = utils.makeArray( elems );
@@ -1213,12 +1213,12 @@
   // -------------------------- Flickity -------------------------- //
   
   // globally unique identifiers
-  var GUID = 0;
+  let GUID = 0;
   // internal store of all Flickity intances
-  var instances = {};
+  let instances = {};
   
   function Flickity( element, options ) {
-    var queryElement = utils.getQueryElement( element );
+    let queryElement = utils.getQueryElement( element );
     if ( !queryElement ) {
       if ( console ) {
         console.error( 'Bad element for Flickity: ' + ( queryElement || element ) );
@@ -1228,7 +1228,7 @@
     this.element = queryElement;
     // do not initialize twice on same element
     if ( this.element.flickityGUID ) {
-      var instance = instances[ this.element.flickityGUID ];
+      let instance = instances[ this.element.flickityGUID ];
       instance.option( options );
       return instance;
     }
@@ -1266,13 +1266,13 @@
   // hash of methods triggered on _create()
   Flickity.createMethods = [];
   
-  var proto = Flickity.prototype;
+  let proto = Flickity.prototype;
   // inherit EventEmitter
   utils.extend( proto, EvEmitter.prototype );
   
   proto._create = function() {
     // add id for Flickity.data
-    var id = this.guid = ++GUID;
+    let id = this.guid = ++GUID;
     this.element.flickityGUID = id; // expando
     instances[ id ] = this; // associate via id
     // initial properties
@@ -1293,8 +1293,8 @@
     }
   
     // add listeners from on option
-    for ( var eventName in this.options.on ) {
-      var listener = this.options.on[ eventName ];
+    for ( let eventName in this.options.on ) {
+      let listener = this.options.on[ eventName ];
       this.on( eventName, listener );
     }
   
@@ -1330,7 +1330,7 @@
   
     this.getSize();
     // move initial cell elements so they can be loaded as cells
-    var cellElems = this._filterFindCellElements( this.element.children );
+    let cellElems = this._filterFindCellElements( this.element.children );
     moveElements( cellElems, this.slider );
     this.viewport.appendChild( this.slider );
     this.element.appendChild( this.viewport );
@@ -1355,7 +1355,7 @@
   // slider positions the cells
   proto._createSlider = function() {
     // slider element does all the positioning
-    var slider = document.createElement('div');
+    let slider = document.createElement('div');
     slider.className = 'flickity-slider';
     slider.style[ this.originSide ] = 0;
     this.slider = slider;
@@ -1380,10 +1380,10 @@
    * @returns {Array} items - collection of new Flickity Cells
    */
   proto._makeCells = function( elems ) {
-    var cellElems = this._filterFindCellElements( elems );
+    let cellElems = this._filterFindCellElements( elems );
   
     // create new Flickity for collection
-    var cells = cellElems.map( function( cellElem ) {
+    let cells = cellElems.map( function( cellElem ) {
       return new Cell( cellElem, this );
     }, this );
   
@@ -1415,15 +1415,15 @@
     // also measure maxCellHeight
     // start 0 if positioning all cells
     this.maxCellHeight = index ? this.maxCellHeight || 0 : 0;
-    var cellX = 0;
+    let cellX = 0;
     // get cellX
     if ( index > 0 ) {
-      var startCell = this.cells[ index - 1 ];
+      let startCell = this.cells[ index - 1 ];
       cellX = startCell.x + startCell.size.outerWidth;
     }
-    var len = this.cells.length;
-    for ( var i=index; i < len; i++ ) {
-      var cell = this.cells[i];
+    let len = this.cells.length;
+    for ( let i=index; i < len; i++ ) {
+      let cell = this.cells[i];
       cell.setPosition( cellX );
       cellX += cell.size.outerWidth;
       this.maxCellHeight = Math.max( cell.size.outerHeight, this.maxCellHeight );
@@ -1456,12 +1456,12 @@
       return;
     }
   
-    var slide = new Slide( this );
+    let slide = new Slide( this );
     this.slides.push( slide );
-    var isOriginLeft = this.originSide == 'left';
-    var nextMargin = isOriginLeft ? 'marginRight' : 'marginLeft';
+    let isOriginLeft = this.originSide == 'left';
+    let nextMargin = isOriginLeft ? 'marginRight' : 'marginLeft';
   
-    var canCellFit = this._getCanCellFit();
+    let canCellFit = this._getCanCellFit();
   
     this.cells.forEach( function( cell, i ) {
       // just add cell if first cell in slide
@@ -1470,7 +1470,7 @@
         return;
       }
   
-      var slideWidth = ( slide.outerWidth - slide.firstMargin ) +
+      let slideWidth = ( slide.outerWidth - slide.firstMargin ) +
         ( cell.size.outerWidth - cell.size[ nextMargin ] );
   
       if ( canCellFit.call( this, i, slideWidth ) ) {
@@ -1491,23 +1491,23 @@
   };
   
   proto._getCanCellFit = function() {
-    var groupCells = this.options.groupCells;
+    let groupCells = this.options.groupCells;
     if ( !groupCells ) {
       return function() {
         return false;
       };
     } else if ( typeof groupCells == 'number' ) {
       // group by number. 3 -> [0,1,2], [3,4,5], ...
-      var number = parseInt( groupCells, 10 );
+      let number = parseInt( groupCells, 10 );
       return function( i ) {
         return ( i % number ) !== 0;
       };
     }
     // default, group by width of slide
     // parse '75%
-    var percentMatch = typeof groupCells == 'string' &&
+    let percentMatch = typeof groupCells == 'string' &&
       groupCells.match(/^(\d+)%$/);
-    var percent = percentMatch ? parseInt( percentMatch[1], 10 ) / 100 : 1;
+    let percent = percentMatch ? parseInt( percentMatch[1], 10 ) / 100 : 1;
     return function( i, slideWidth ) {
       return slideWidth <= ( this.size.innerWidth + 1 ) * percent;
     };
@@ -1526,7 +1526,7 @@
     this.cursorPosition = this.size.innerWidth * this.cellAlign;
   };
   
-  var cellAlignShorthands = {
+  let cellAlignShorthands = {
     // cell align, then based on origin side
     center: {
       left: 0.5,
@@ -1543,13 +1543,13 @@
   };
   
   proto.setCellAlign = function() {
-    var shorthand = cellAlignShorthands[ this.options.cellAlign ];
+    let shorthand = cellAlignShorthands[ this.options.cellAlign ];
     this.cellAlign = shorthand ? shorthand[ this.originSide ] : this.options.cellAlign;
   };
   
   proto.setGallerySize = function() {
     if ( this.options.setGallerySize ) {
-      var height = this.options.adaptiveHeight && this.selectedSlide ?
+      let height = this.options.adaptiveHeight && this.selectedSlide ?
         this.selectedSlide.height : this.maxCellHeight;
       this.viewport.style.height = height + 'px';
     }
@@ -1565,8 +1565,8 @@
     this._unshiftCells( this.afterShiftCells );
     // get before cells
     // initial gap
-    var gapX = this.cursorPosition;
-    var cellIndex = this.cells.length - 1;
+    let gapX = this.cursorPosition;
+    let cellIndex = this.cells.length - 1;
     this.beforeShiftCells = this._getGapCells( gapX, cellIndex, -1 );
     // get after cells
     // ending gap between last cell and end of gallery viewport
@@ -1577,9 +1577,9 @@
   
   proto._getGapCells = function( gapX, cellIndex, increment ) {
     // keep adding cells until the cover the initial gap
-    var cells = [];
+    let cells = [];
     while ( gapX > 0 ) {
-      var cell = this.cells[ cellIndex ];
+      let cell = this.cells[ cellIndex ];
       if ( !cell ) {
         break;
       }
@@ -1597,15 +1597,15 @@
     if ( !this.options.contain || this.options.wrapAround || !this.cells.length ) {
       return;
     }
-    var isRightToLeft = this.options.rightToLeft;
-    var beginMargin = isRightToLeft ? 'marginRight' : 'marginLeft';
-    var endMargin = isRightToLeft ? 'marginLeft' : 'marginRight';
-    var contentWidth = this.slideableWidth - this.getLastCell().size[ endMargin ];
+    let isRightToLeft = this.options.rightToLeft;
+    let beginMargin = isRightToLeft ? 'marginRight' : 'marginLeft';
+    let endMargin = isRightToLeft ? 'marginLeft' : 'marginRight';
+    let contentWidth = this.slideableWidth - this.getLastCell().size[ endMargin ];
     // content is less than gallery size
-    var isContentSmaller = contentWidth < this.size.innerWidth;
+    let isContentSmaller = contentWidth < this.size.innerWidth;
     // bounds
-    var beginBound = this.cursorPosition + this.cells[0].size[ beginMargin ];
-    var endBound = contentWidth - this.size.innerWidth * ( 1 - this.cellAlign );
+    let beginBound = this.cursorPosition + this.cells[0].size[ beginMargin ];
+    let endBound = contentWidth - this.size.innerWidth * ( 1 - this.cellAlign );
     // contain each cell target
     this.slides.forEach( function( slide ) {
       if ( isContentSmaller ) {
@@ -1628,16 +1628,16 @@
    * @param {Array} args - extra arguments
    */
   proto.dispatchEvent = function( type, event, args ) {
-    var emitArgs = event ? [ event ].concat( args ) : args;
+    let emitArgs = event ? [ event ].concat( args ) : args;
     this.emitEvent( type, emitArgs );
   
     if ( jQuery && this.$element ) {
       // default trigger with type if no event
       type += this.options.namespaceJQueryEvents ? '.flickity' : '';
-      var $event = type;
+      let $event = type;
       if ( event ) {
         // create jQuery event
-        var jQEvent = jQuery.Event( event );
+        let jQEvent = jQuery.Event( event );
         jQEvent.type = type;
         $event = jQEvent;
       }
@@ -1666,7 +1666,7 @@
     if ( !this.slides[ index ] ) {
       return;
     }
-    var prevIndex = this.selectedIndex;
+    let prevIndex = this.selectedIndex;
     this.selectedIndex = index;
     this.updateSelectedSlide();
     if ( isInstant ) {
@@ -1689,16 +1689,16 @@
   
   // wraps position for wrapAround, to move to closest slide. #113
   proto._wrapSelect = function( index ) {
-    var len = this.slides.length;
-    var isWrapping = this.options.wrapAround && len > 1;
+    let len = this.slides.length;
+    let isWrapping = this.options.wrapAround && len > 1;
     if ( !isWrapping ) {
       return index;
     }
-    var wrapIndex = utils.modulo( index, len );
+    let wrapIndex = utils.modulo( index, len );
     // go to shortest
-    var delta = Math.abs( wrapIndex - this.selectedIndex );
-    var backWrapDelta = Math.abs( ( wrapIndex + len ) - this.selectedIndex );
-    var forewardWrapDelta = Math.abs( ( wrapIndex - len ) - this.selectedIndex );
+    let delta = Math.abs( wrapIndex - this.selectedIndex );
+    let backWrapDelta = Math.abs( ( wrapIndex + len ) - this.selectedIndex );
+    let forewardWrapDelta = Math.abs( ( wrapIndex - len ) - this.selectedIndex );
     if ( !this.isDragSelect && backWrapDelta < delta ) {
       index += len;
     } else if ( !this.isDragSelect && forewardWrapDelta < delta ) {
@@ -1721,7 +1721,7 @@
   };
   
   proto.updateSelectedSlide = function() {
-    var slide = this.slides[ this.selectedIndex ];
+    let slide = this.slides[ this.selectedIndex ];
     // selectedIndex could be outside of slides, if triggered before resize()
     if ( !slide ) {
       return;
@@ -1746,7 +1746,7 @@
   };
   
   proto.selectInitialIndex = function() {
-    var initialIndex = this.options.initialIndex;
+    let initialIndex = this.options.initialIndex;
     // already activated, select previous selectedIndex
     if ( this.isInitActivated ) {
       this.select( this.selectedIndex, false, true );
@@ -1754,14 +1754,14 @@
     }
     // select with selector string
     if ( initialIndex && typeof initialIndex == 'string' ) {
-      var cell = this.queryCell( initialIndex );
+      let cell = this.queryCell( initialIndex );
       if ( cell ) {
         this.selectCell( initialIndex, false, true );
         return;
       }
     }
   
-    var index = 0;
+    let index = 0;
     // select with number
     if ( initialIndex && this.slides[ initialIndex ] ) {
       index = initialIndex;
@@ -1776,20 +1776,20 @@
    */
   proto.selectCell = function( value, isWrap, isInstant ) {
     // get cell
-    var cell = this.queryCell( value );
+    let cell = this.queryCell( value );
     if ( !cell ) {
       return;
     }
   
-    var index = this.getCellSlideIndex( cell );
+    let index = this.getCellSlideIndex( cell );
     this.select( index, isWrap, isInstant );
   };
   
   proto.getCellSlideIndex = function( cell ) {
     // get index of slides that has cell
-    for ( var i=0; i < this.slides.length; i++ ) {
-      var slide = this.slides[i];
-      var index = slide.cells.indexOf( cell );
+    for ( let i=0; i < this.slides.length; i++ ) {
+      let slide = this.slides[i];
+      let index = slide.cells.indexOf( cell );
       if ( index != -1 ) {
         return i;
       }
@@ -1805,8 +1805,8 @@
    */
   proto.getCell = function( elem ) {
     // loop through cells to get the one that matches
-    for ( var i=0; i < this.cells.length; i++ ) {
-      var cell = this.cells[i];
+    for ( let i=0; i < this.cells.length; i++ ) {
+      let cell = this.cells[i];
       if ( cell.element == elem ) {
         return cell;
       }
@@ -1820,9 +1820,9 @@
    */
   proto.getCells = function( elems ) {
     elems = utils.makeArray( elems );
-    var cells = [];
+    let cells = [];
     elems.forEach( function( elem ) {
-      var cell = this.getCell( elem );
+      let cell = this.getCell( elem );
       if ( cell ) {
         cells.push( cell );
       }
@@ -1847,7 +1847,7 @@
    */
   proto.getParentCell = function( elem ) {
     // first check if elem is cell
-    var cell = this.getCell( elem );
+    let cell = this.getCell( elem );
     if ( cell ) {
       return cell;
     }
@@ -1868,15 +1868,15 @@
     }
     index = index === undefined ? this.selectedIndex : index;
   
-    var len = this.slides.length;
+    let len = this.slides.length;
     if ( 1 + ( adjCount * 2 ) >= len ) {
       return this.getCellElements();
     }
   
-    var cellElems = [];
-    for ( var i = index - adjCount; i <= index + adjCount ; i++ ) {
-      var slideIndex = this.options.wrapAround ? utils.modulo( i, len ) : i;
-      var slide = this.slides[ slideIndex ];
+    let cellElems = [];
+    for ( let i = index - adjCount; i <= index + adjCount ; i++ ) {
+      let slideIndex = this.options.wrapAround ? utils.modulo( i, len ) : i;
+      let slide = this.slides[ slideIndex ];
       if ( slide ) {
         cellElems = cellElems.concat( slide.getCellElements() );
       }
@@ -1943,19 +1943,19 @@
     this.setGallerySize();
     this.emitEvent('resize');
     // update selected index for group slides, instant
-    // TODO: position can be lost between groups of various numbers
-    var selectedElement = this.selectedElements && this.selectedElements[0];
+    // TODO: position can be lost between groups of letious numbers
+    let selectedElement = this.selectedElements && this.selectedElements[0];
     this.selectCell( selectedElement, false, true );
   };
   
   // watches the :after property, activates/deactivates
   proto.watchCSS = function() {
-    var watchOption = this.options.watchCSS;
+    let watchOption = this.options.watchCSS;
     if ( !watchOption ) {
       return;
     }
   
-    var afterContent = getComputedStyle( this.element, ':after' ).content;
+    let afterContent = getComputedStyle( this.element, ':after' ).content;
     // activate if :after { content: 'flickity' }
     if ( afterContent.indexOf('flickity') != -1 ) {
       this.activate();
@@ -1969,12 +1969,12 @@
   // go previous/next if left/right keys pressed
   proto.onkeydown = function( event ) {
     // only work if element is in focus
-    var isNotFocused = document.activeElement && document.activeElement != this.element;
+    let isNotFocused = document.activeElement && document.activeElement != this.element;
     if ( !this.options.accessibility ||isNotFocused ) {
       return;
     }
   
-    var handler = Flickity.keyboardHandlers[ event.keyCode ];
+    let handler = Flickity.keyboardHandlers[ event.keyCode ];
     if ( handler ) {
       handler.call( this );
     }
@@ -1983,13 +1983,13 @@
   Flickity.keyboardHandlers = {
     // left arrow
     37: function() {
-      var leftMethod = this.options.rightToLeft ? 'next' : 'previous';
+      let leftMethod = this.options.rightToLeft ? 'next' : 'previous';
       this.uiChange();
       this[ leftMethod ]();
     },
     // right arrow
     39: function() {
-      var rightMethod = this.options.rightToLeft ? 'previous' : 'next';
+      let rightMethod = this.options.rightToLeft ? 'previous' : 'next';
       this.uiChange();
       this[ rightMethod ]();
     },
@@ -2000,7 +2000,7 @@
   proto.focus = function() {
     // TODO remove scrollTo once focus options gets more support
     // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus#Browser_compatibility
-    var prevScrollY = window.pageYOffset;
+    let prevScrollY = window.pageYOffset;
     this.element.focus({ preventScroll: true });
     // hack to fix scroll jump after focus, #76
     if ( window.pageYOffset != prevScrollY ) {
@@ -2059,7 +2059,7 @@
    */
   Flickity.data = function( elem ) {
     elem = utils.getQueryElement( elem );
-    var id = elem && elem.flickityGUID;
+    let id = elem && elem.flickityGUID;
     return id && instances[ id ];
   };
   
@@ -2122,7 +2122,7 @@
   function Unipointer() {}
   
   // inherit EvEmitter
-  var proto = Unipointer.prototype = Object.create( EvEmitter.prototype );
+  let proto = Unipointer.prototype = Object.create( EvEmitter.prototype );
   
   proto.bindStartEvent = function( elem ) {
     this._bindStartEvent( elem, true );
@@ -2139,10 +2139,10 @@
   proto._bindStartEvent = function( elem, isAdd ) {
     // munge isAdd, default to true
     isAdd = isAdd === undefined ? true : isAdd;
-    var bindMethod = isAdd ? 'addEventListener' : 'removeEventListener';
+    let bindMethod = isAdd ? 'addEventListener' : 'removeEventListener';
   
     // default to mouse events
-    var startEvent = 'mousedown';
+    let startEvent = 'mousedown';
     if ( window.PointerEvent ) {
       // Pointer Events
       startEvent = 'pointerdown';
@@ -2155,7 +2155,7 @@
   
   // trigger handler methods for events
   proto.handleEvent = function( event ) {
-    var method = 'on' + event.type;
+    let method = 'on' + event.type;
     if ( this[ method ] ) {
       this[ method ]( event );
     }
@@ -2163,8 +2163,8 @@
   
   // returns the touch that we're keeping track of
   proto.getTouch = function( touches ) {
-    for ( var i=0; i < touches.length; i++ ) {
-      var touch = touches[i];
+    for ( let i=0; i < touches.length; i++ ) {
+      let touch = touches[i];
       if ( touch.identifier == this.pointerIdentifier ) {
         return touch;
       }
@@ -2175,7 +2175,7 @@
   
   proto.onmousedown = function( event ) {
     // dismiss clicks from right or middle buttons
-    var button = event.button;
+    let button = event.button;
     if ( button && ( button !== 0 && button !== 1 ) ) {
       return;
     }
@@ -2217,7 +2217,7 @@
   };
   
   // hash of events to be bound after start event
-  var postStartEvents = {
+  let postStartEvents = {
     mousedown: [ 'mousemove', 'mouseup' ],
     touchstart: [ 'touchmove', 'touchend', 'touchcancel' ],
     pointerdown: [ 'pointermove', 'pointerup', 'pointercancel' ],
@@ -2228,7 +2228,7 @@
       return;
     }
     // get proper events to match start event
-    var events = postStartEvents[ event.type ];
+    let events = postStartEvents[ event.type ];
     // bind events to node
     events.forEach( function( eventName ) {
       window.addEventListener( eventName, this );
@@ -2262,7 +2262,7 @@
   };
   
   proto.ontouchmove = function( event ) {
-    var touch = this.getTouch( event.changedTouches );
+    let touch = this.getTouch( event.changedTouches );
     if ( touch ) {
       this._pointerMove( event, touch );
     }
@@ -2297,7 +2297,7 @@
   };
   
   proto.ontouchend = function( event ) {
-    var touch = this.getTouch( event.changedTouches );
+    let touch = this.getTouch( event.changedTouches );
     if ( touch ) {
       this._pointerUp( event, touch );
     }
@@ -2345,7 +2345,7 @@
   };
   
   proto.ontouchcancel = function( event ) {
-    var touch = this.getTouch( event.changedTouches );
+    let touch = this.getTouch( event.changedTouches );
     if ( touch ) {
       this._pointerCancel( event, touch );
     }
@@ -2425,7 +2425,7 @@
   function Unidragger() {}
   
   // inherit Unipointer & EvEmitter
-  var proto = Unidragger.prototype = Object.create( Unipointer.prototype );
+  let proto = Unidragger.prototype = Object.create( Unipointer.prototype );
   
   // ----- bind start ----- //
   
@@ -2445,10 +2445,10 @@
     // munge isAdd, default to true
     isAdd = isAdd === undefined ? true : isAdd;
     // bind each handle
-    var bindMethod = isAdd ? 'addEventListener' : 'removeEventListener';
-    var touchAction = isAdd ? this._touchActionValue : '';
-    for ( var i=0; i < this.handles.length; i++ ) {
-      var handle = this.handles[i];
+    let bindMethod = isAdd ? 'addEventListener' : 'removeEventListener';
+    let touchAction = isAdd ? this._touchActionValue : '';
+    for ( let i=0; i < this.handles.length; i++ ) {
+      let handle = this.handles[i];
       this._bindStartEvent( handle, isAdd );
       handle[ bindMethod ]( 'click', this );
       // touch-action: none to override browser touch gestures. metafizzy/flickity#540
@@ -2469,7 +2469,7 @@
    * @param {Event or Touch} pointer
    */
   proto.pointerDown = function( event, pointer ) {
-    var isOkay = this.okayPointerDown( event );
+    let isOkay = this.okayPointerDown( event );
     if ( !isOkay ) {
       return;
     }
@@ -2484,7 +2484,7 @@
   };
   
   // nodes that have text fields
-  var cursorNodes = {
+  let cursorNodes = {
     TEXTAREA: true,
     INPUT: true,
     SELECT: true,
@@ -2492,7 +2492,7 @@
   };
   
   // input types that do not have text fields
-  var clickTypes = {
+  let clickTypes = {
     radio: true,
     checkbox: true,
     button: true,
@@ -2503,9 +2503,9 @@
   
   // dismiss inputs with text fields. flickity#403, flickity#404
   proto.okayPointerDown = function( event ) {
-    var isCursorNode = cursorNodes[ event.target.nodeName ];
-    var isClickType = clickTypes[ event.target.type ];
-    var isOkay = !isCursorNode || isClickType;
+    let isCursorNode = cursorNodes[ event.target.nodeName ];
+    let isClickType = clickTypes[ event.target.type ];
+    let isOkay = !isCursorNode || isClickType;
     if ( !isOkay ) {
       this._pointerReset();
     }
@@ -2514,9 +2514,9 @@
   
   // kludge to blur previously focused input
   proto.pointerDownBlur = function() {
-    var focused = document.activeElement;
+    let focused = document.activeElement;
     // do not blur body for IE10, metafizzy/flickity#117
-    var canBlur = focused && focused.blur && focused != document.body;
+    let canBlur = focused && focused.blur && focused != document.body;
     if ( canBlur ) {
       focused.blur();
     }
@@ -2530,14 +2530,14 @@
    * @param {Event or Touch} pointer
    */
   proto.pointerMove = function( event, pointer ) {
-    var moveVector = this._dragPointerMove( event, pointer );
+    let moveVector = this._dragPointerMove( event, pointer );
     this.emitEvent( 'pointerMove', [ event, pointer, moveVector ] );
     this._dragMove( event, pointer, moveVector );
   };
   
   // base pointer move logic
   proto._dragPointerMove = function( event, pointer ) {
-    var moveVector = {
+    let moveVector = {
       x: pointer.pageX - this.pointerDownPointer.pageX,
       y: pointer.pageY - this.pointerDownPointer.pageY
     };
@@ -2711,14 +2711,14 @@
   
   // -------------------------- drag prototype -------------------------- //
   
-  var proto = Flickity.prototype;
+  let proto = Flickity.prototype;
   utils.extend( proto, Unidragger.prototype );
   proto._touchActionValue = 'pan-y';
   
   // --------------------------  -------------------------- //
   
-  var isTouch = 'createTouch' in document;
-  var isTouchmoveScrollCanceled = false;
+  let isTouch = 'createTouch' in document;
+  let isTouchmoveScrollCanceled = false;
   
   proto._createDrag = function() {
     this.on( 'activate', this.onActivateDrag );
@@ -2781,7 +2781,7 @@
       this._pointerDownDefault( event, pointer );
       return;
     }
-    var isOkay = this.okayPointerDown( event );
+    let isOkay = this.okayPointerDown( event );
     if ( !isOkay ) {
       return;
     }
@@ -2817,23 +2817,23 @@
     this.dispatchEvent( 'pointerDown', event, [ pointer ] );
   };
   
-  var focusNodes = {
+  let focusNodes = {
     INPUT: true,
     TEXTAREA: true,
     SELECT: true,
   };
   
   proto.pointerDownFocus = function( event ) {
-    var isFocusNode = focusNodes[ event.target.nodeName ];
+    let isFocusNode = focusNodes[ event.target.nodeName ];
     if ( !isFocusNode ) {
       this.focus();
     }
   };
   
   proto._pointerDownPreventDefault = function( event ) {
-    var isTouchStart = event.type == 'touchstart';
-    var isTouchPointer = event.pointerType == 'touch';
-    var isFocusNode = focusNodes[ event.target.nodeName ];
+    let isTouchStart = event.type == 'touchstart';
+    let isTouchPointer = event.pointerType == 'touch';
+    let isFocusNode = focusNodes[ event.target.nodeName ];
     if ( !isTouchStart && !isTouchPointer && !isFocusNode ) {
       event.preventDefault();
     }
@@ -2872,7 +2872,7 @@
   };
   
   proto.pointerMove = function( event, pointer ) {
-    var moveVector = this._dragPointerMove( event, pointer );
+    let moveVector = this._dragPointerMove( event, pointer );
     this.dispatchEvent( 'pointerMove', event, [ pointer, moveVector ] );
     this._dragMove( event, pointer, moveVector );
   };
@@ -2885,18 +2885,18 @@
   
     this.previousDragX = this.dragX;
     // reverse if right-to-left
-    var direction = this.options.rightToLeft ? -1 : 1;
+    let direction = this.options.rightToLeft ? -1 : 1;
     if ( this.options.wrapAround ) {
       // wrap around move. #589
       moveVector.x = moveVector.x % this.slideableWidth;
     }
-    var dragX = this.dragStartPosition + moveVector.x * direction;
+    let dragX = this.dragStartPosition + moveVector.x * direction;
   
     if ( !this.options.wrapAround && this.slides.length ) {
       // slow drag
-      var originBound = Math.max( -this.slides[0].target, this.dragStartPosition );
+      let originBound = Math.max( -this.slides[0].target, this.dragStartPosition );
       dragX = dragX > originBound ? ( dragX + originBound ) * 0.5 : dragX;
-      var endBound = Math.min( -this.getLastSlide().target, this.dragStartPosition );
+      let endBound = Math.min( -this.getLastSlide().target, this.dragStartPosition );
       dragX = dragX < endBound ? ( dragX + endBound ) * 0.5 : dragX;
     }
   
@@ -2914,13 +2914,13 @@
       this.isFreeScrolling = true;
     }
     // set selectedIndex based on where flick will end up
-    var index = this.dragEndRestingSelect();
+    let index = this.dragEndRestingSelect();
   
     if ( this.options.freeScroll && !this.options.wrapAround ) {
       // if free-scroll & not wrap around
       // do not free-scroll if going outside of bounding slides
       // so bounding slides can attract slider, and keep it in bounds
-      var restingX = this.getRestingPosition();
+      let restingX = this.getRestingPosition();
       this.isFreeScrolling = -restingX > this.slides[0].target &&
         -restingX < this.getLastSlide().target;
     } else if ( !this.options.freeScroll && index == this.selectedIndex ) {
@@ -2938,14 +2938,14 @@
   };
   
   proto.dragEndRestingSelect = function() {
-    var restingX = this.getRestingPosition();
+    let restingX = this.getRestingPosition();
     // how far away from selected slide
-    var distance = Math.abs( this.getSlideDistance( -restingX, this.selectedIndex ) );
+    let distance = Math.abs( this.getSlideDistance( -restingX, this.selectedIndex ) );
     // get closet resting going up and going down
-    var positiveResting = this._getClosestResting( restingX, distance, 1 );
-    var negativeResting = this._getClosestResting( restingX, distance, -1 );
+    let positiveResting = this._getClosestResting( restingX, distance, 1 );
+    let negativeResting = this._getClosestResting( restingX, distance, -1 );
     // use closer resting for wrap-around
-    var index = positiveResting.distance < negativeResting.distance ?
+    let index = positiveResting.distance < negativeResting.distance ?
       positiveResting.index : negativeResting.index;
     return index;
   };
@@ -2959,9 +2959,9 @@
    * @returns {Object} - { distance: {Number}, index: {Integer} }
    */
   proto._getClosestResting = function( restingX, distance, increment ) {
-    var index = this.selectedIndex;
-    var minDistance = Infinity;
-    var condition = this.options.contain && !this.options.wrapAround ?
+    let index = this.selectedIndex;
+    let minDistance = Infinity;
+    let condition = this.options.contain && !this.options.wrapAround ?
       // if contain, keep going if distance is equal to minDistance
       function( d, md ) { return d <= md; } : function( d, md ) { return d < md; };
     while ( condition( distance, minDistance ) ) {
@@ -2987,16 +2987,16 @@
    * @param {Integer} index - slide index
    */
   proto.getSlideDistance = function( x, index ) {
-    var len = this.slides.length;
+    let len = this.slides.length;
     // wrap around if at least 2 slides
-    var isWrapAround = this.options.wrapAround && len > 1;
-    var slideIndex = isWrapAround ? utils.modulo( index, len ) : index;
-    var slide = this.slides[ slideIndex ];
+    let isWrapAround = this.options.wrapAround && len > 1;
+    let slideIndex = isWrapAround ? utils.modulo( index, len ) : index;
+    let slide = this.slides[ slideIndex ];
     if ( !slide ) {
       return null;
     }
     // add distance for wrap-around slides
-    var wrap = isWrapAround ? this.slideableWidth * Math.floor( index / len ) : 0;
+    let wrap = isWrapAround ? this.slideableWidth * Math.floor( index / len ) : 0;
     return x - ( slide.target + wrap );
   };
   
@@ -3008,8 +3008,8 @@
       return 0;
     }
   
-    var distance = this.getSlideDistance( -this.dragX, this.selectedIndex );
-    var delta = this.previousDragX - this.dragX;
+    let distance = this.getSlideDistance( -this.dragX, this.selectedIndex );
+    let delta = this.previousDragX - this.dragX;
     if ( distance > 0 && delta > 0 ) {
       // boost to next if moving towards the right, and positive velocity
       return 1;
@@ -3024,18 +3024,18 @@
   
   proto.staticClick = function( event, pointer ) {
     // get clickedCell, if cell was clicked
-    var clickedCell = this.getParentCell( event.target );
-    var cellElem = clickedCell && clickedCell.element;
-    var cellIndex = clickedCell && this.cells.indexOf( clickedCell );
+    let clickedCell = this.getParentCell( event.target );
+    let cellElem = clickedCell && clickedCell.element;
+    let cellIndex = clickedCell && this.cells.indexOf( clickedCell );
     this.dispatchEvent( 'staticClick', event, [ pointer, cellElem, cellIndex ] );
   };
   
   // ----- scroll ----- //
   
   proto.onscroll = function() {
-    var scroll = getScrollPosition();
-    var scrollMoveX = this.pointerDownScroll.x - scroll.x;
-    var scrollMoveY = this.pointerDownScroll.y - scroll.y;
+    let scroll = getScrollPosition();
+    let scrollMoveX = this.pointerDownScroll.x - scroll.x;
+    let scrollMoveY = this.pointerDownScroll.y - scroll.y;
     // cancel click/tap if scroll is too much
     if ( Math.abs( scrollMoveX ) > 3 || Math.abs( scrollMoveY ) > 3 ) {
       this._pointerDone();
@@ -3091,7 +3091,7 @@
   }( window, function factory( window, Flickity, Unipointer, utils ) {
   'use strict';
   
-  var svgURI = 'http://www.w3.org/2000/svg';
+  let svgURI = 'http://www.w3.org/2000/svg';
   
   // -------------------------- PrevNextButton -------------------------- //
   
@@ -3107,10 +3107,10 @@
     // properties
     this.isEnabled = true;
     this.isPrevious = this.direction == -1;
-    var leftDirection = this.parent.options.rightToLeft ? 1 : -1;
+    let leftDirection = this.parent.options.rightToLeft ? 1 : -1;
     this.isLeft = this.direction == leftDirection;
   
-    var element = this.element = document.createElement('button');
+    let element = this.element = document.createElement('button');
     element.className = 'flickity-button flickity-prev-next-button';
     element.className += this.isPrevious ? ' previous' : ' next';
     // prevent button from submitting form http://stackoverflow.com/a/10836076/182183
@@ -3121,7 +3121,7 @@
     element.setAttribute( 'aria-label', this.isPrevious ? 'Previous' : 'Next' );
   
     // create arrow
-    var svg = this.createSVG();
+    let svg = this.createSVG();
     element.appendChild( svg );
     // events
     this.parent.on( 'select', this.update.bind( this ) );
@@ -3144,11 +3144,11 @@
   };
   
   PrevNextButton.prototype.createSVG = function() {
-    var svg = document.createElementNS( svgURI, 'svg');
+    let svg = document.createElementNS( svgURI, 'svg');
     svg.setAttribute( 'class', 'flickity-button-icon' );
     svg.setAttribute( 'viewBox', '0 0 100 100' );
-    var path = document.createElementNS( svgURI, 'path');
-    var pathMovements = getArrowMovements( this.parent.options.arrowShape );
+    let path = document.createElementNS( svgURI, 'path');
+    let pathMovements = getArrowMovements( this.parent.options.arrowShape );
     path.setAttribute( 'd', pathMovements );
     path.setAttribute( 'class', 'arrow' );
     // rotate arrow
@@ -3182,7 +3182,7 @@
       return;
     }
     this.parent.uiChange();
-    var method = this.isPrevious ? 'previous' : 'next';
+    let method = this.isPrevious ? 'previous' : 'next';
     this.parent[ method ]();
   };
   
@@ -3206,15 +3206,15 @@
   
   PrevNextButton.prototype.update = function() {
     // index of first or last slide, if previous or next
-    var slides = this.parent.slides;
+    let slides = this.parent.slides;
     // enable is wrapAround and at least 2 slides
     if ( this.parent.options.wrapAround && slides.length > 1 ) {
       this.enable();
       return;
     }
-    var lastIndex = slides.length ? slides.length - 1 : 0;
-    var boundIndex = this.isPrevious ? 0 : lastIndex;
-    var method = this.parent.selectedIndex == boundIndex ? 'disable' : 'enable';
+    let lastIndex = slides.length ? slides.length - 1 : 0;
+    let boundIndex = this.isPrevious ? 0 : lastIndex;
+    let method = this.parent.selectedIndex == boundIndex ? 'disable' : 'enable';
     this[ method ]();
   };
   
@@ -3236,7 +3236,7 @@
   });
   
   Flickity.createMethods.push('_createPrevNextButtons');
-  var proto = Flickity.prototype;
+  let proto = Flickity.prototype;
   
   proto._createPrevNextButtons = function() {
     if ( !this.options.prevNextButtons ) {
@@ -3341,7 +3341,7 @@
   
   PageDots.prototype.setDots = function() {
     // get difference between number of slides and number of dots
-    var delta = this.parent.slides.length - this.dots.length;
+    let delta = this.parent.slides.length - this.dots.length;
     if ( delta > 0 ) {
       this.addDots( delta );
     } else if ( delta < 0 ) {
@@ -3350,13 +3350,13 @@
   };
   
   PageDots.prototype.addDots = function( count ) {
-    var fragment = document.createDocumentFragment();
-    var newDots = [];
-    var length = this.dots.length;
-    var max = length + count;
+    let fragment = document.createDocumentFragment();
+    let newDots = [];
+    let length = this.dots.length;
+    let max = length + count;
   
-    for ( var i = length; i < max; i++ ) {
-      var dot = document.createElement('li');
+    for ( let i = length; i < max; i++ ) {
+      let dot = document.createElement('li');
       dot.className = 'dot';
       dot.setAttribute( 'aria-label', 'Page dot ' + ( i + 1 ) );
       fragment.appendChild( dot );
@@ -3369,7 +3369,7 @@
   
   PageDots.prototype.removeDots = function( count ) {
     // remove from this.dots collection
-    var removeDots = this.dots.splice( this.dots.length - count, count );
+    let removeDots = this.dots.splice( this.dots.length - count, count );
     // remove from DOM
     removeDots.forEach( function( dot ) {
       this.holder.removeChild( dot );
@@ -3393,14 +3393,14 @@
   
   PageDots.prototype.onTap = // old method name, backwards-compatible
   PageDots.prototype.onClick = function( event ) {
-    var target = event.target;
+    let target = event.target;
     // only care about dot clicks
     if ( target.nodeName != 'LI' ) {
       return;
     }
   
     this.parent.uiChange();
-    var index = this.dots.indexOf( target );
+    let index = this.dots.indexOf( target );
     this.parent.select( index );
   };
   
@@ -3419,7 +3419,7 @@
   
   Flickity.createMethods.push('_createPageDots');
   
-  var proto = Flickity.prototype;
+  let proto = Flickity.prototype;
   
   proto._createPageDots = function() {
     if ( !this.options.pageDots ) {
@@ -3509,7 +3509,7 @@
       return;
     }
     // do not play if page is hidden, start playing when page is visible
-    var isPageHidden = document.hidden;
+    let isPageHidden = document.hidden;
     if ( isPageHidden ) {
       document.addEventListener( 'visibilitychange', this.onVisibilityPlay );
       return;
@@ -3528,10 +3528,10 @@
       return;
     }
   
-    var time = this.parent.options.autoPlay;
+    let time = this.parent.options.autoPlay;
     // default to 3 seconds
     time = typeof time == 'number' ? time : 3000;
-    var _this = this;
+    let _this = this;
     // HACK: reset ticks if stopped and started within interval
     this.clear();
     this.timeout = setTimeout( function() {
@@ -3567,7 +3567,7 @@
   
   // pause if page visibility is hidden, unpause if visible
   Player.prototype.visibilityChange = function() {
-    var isPageHidden = document.hidden;
+    let isPageHidden = document.hidden;
     this[ isPageHidden ? 'pause' : 'unpause' ]();
   };
   
@@ -3583,7 +3583,7 @@
   });
   
   Flickity.createMethods.push('_createPlayer');
-  var proto = Flickity.prototype;
+  let proto = Flickity.prototype;
   
   proto._createPlayer = function() {
     this.player = new Player( this );
@@ -3684,7 +3684,7 @@
   
   // append cells to a document fragment
   function getCellsFragment( cells ) {
-    var fragment = document.createDocumentFragment();
+    let fragment = document.createDocumentFragment();
     cells.forEach( function( cell ) {
       fragment.appendChild( cell.element );
     });
@@ -3693,7 +3693,7 @@
   
   // -------------------------- add/remove cell prototype -------------------------- //
   
-  var proto = Flickity.prototype;
+  let proto = Flickity.prototype;
   
   /**
    * Insert, prepend, or append cells
@@ -3701,21 +3701,21 @@
    * @param {Integer} index
    */
   proto.insert = function( elems, index ) {
-    var cells = this._makeCells( elems );
+    let cells = this._makeCells( elems );
     if ( !cells || !cells.length ) {
       return;
     }
-    var len = this.cells.length;
+    let len = this.cells.length;
     // default to append
     index = index === undefined ? len : index;
     // add cells with document fragment
-    var fragment = getCellsFragment( cells );
+    let fragment = getCellsFragment( cells );
     // append to slider
-    var isAppend = index == len;
+    let isAppend = index == len;
     if ( isAppend ) {
       this.slider.appendChild( fragment );
     } else {
-      var insertCellElement = this.cells[ index ].element;
+      let insertCellElement = this.cells[ index ].element;
       this.slider.insertBefore( fragment, insertCellElement );
     }
     // add to this.cells
@@ -3727,7 +3727,7 @@
       this.cells = this.cells.concat( cells );
     } else {
       // insert in this.cells
-      var endCells = this.cells.splice( index, len - index );
+      let endCells = this.cells.splice( index, len - index );
       this.cells = this.cells.concat( cells ).concat( endCells );
     }
   
@@ -3748,16 +3748,16 @@
    * @param {Element, Array, NodeList} elems
    */
   proto.remove = function( elems ) {
-    var cells = this.getCells( elems );
+    let cells = this.getCells( elems );
     if ( !cells || !cells.length ) {
       return;
     }
   
-    var minCellIndex = this.cells.length - 1;
+    let minCellIndex = this.cells.length - 1;
     // remove cells from collection & DOM
     cells.forEach( function( cell ) {
       cell.remove();
-      var index = this.cells.indexOf( cell );
+      let index = this.cells.indexOf( cell );
       minCellIndex = Math.min( index, minCellIndex );
       utils.removeFrom( this.cells, cell );
     }, this );
@@ -3770,13 +3770,13 @@
    * @param {Element} elem - cell's element
    */
   proto.cellSizeChange = function( elem ) {
-    var cell = this.getCell( elem );
+    let cell = this.getCell( elem );
     if ( !cell ) {
       return;
     }
     cell.getSize();
   
-    var index = this.cells.indexOf( cell );
+    let index = this.cells.indexOf( cell );
     this.cellChange( index );
   };
   
@@ -3785,13 +3785,13 @@
    * @param {Integer} changedCellIndex - index of the changed cell, optional
    */
   proto.cellChange = function( changedCellIndex, isPositioningSlider ) {
-    var prevSelectedElem = this.selectedElement;
+    let prevSelectedElem = this.selectedElement;
     this._positionCells( changedCellIndex );
     this._getWrapShiftCells();
     this.setGallerySize();
     // update selectedIndex
     // try to maintain position & select previous selected element
-    var cell = this.getCell( prevSelectedElem );
+    let cell = this.getCell( prevSelectedElem );
     if ( cell ) {
       this.selectedIndex = this.getCellSlideIndex( cell );
     }
@@ -3844,24 +3844,24 @@
   'use strict';
   
   Flickity.createMethods.push('_createLazyload');
-  var proto = Flickity.prototype;
+  let proto = Flickity.prototype;
   
   proto._createLazyload = function() {
     this.on( 'select', this.lazyLoad );
   };
   
   proto.lazyLoad = function() {
-    var lazyLoad = this.options.lazyLoad;
+    let lazyLoad = this.options.lazyLoad;
     if ( !lazyLoad ) {
       return;
     }
     // get adjacent cells, use lazyLoad option for adjacent count
-    var adjCount = typeof lazyLoad == 'number' ? lazyLoad : 0;
-    var cellElems = this.getAdjacentCellElements( adjCount );
+    let adjCount = typeof lazyLoad == 'number' ? lazyLoad : 0;
+    let cellElems = this.getAdjacentCellElements( adjCount );
     // get lazy images in those cells
-    var lazyImages = [];
+    let lazyImages = [];
     cellElems.forEach( function( cellElem ) {
-      var lazyCellImages = getCellLazyImages( cellElem );
+      let lazyCellImages = getCellLazyImages( cellElem );
       lazyImages = lazyImages.concat( lazyCellImages );
     });
     // load lazy images
@@ -3873,17 +3873,17 @@
   function getCellLazyImages( cellElem ) {
     // check if cell element is lazy image
     if ( cellElem.nodeName == 'IMG' ) {
-      var lazyloadAttr = cellElem.getAttribute('data-flickity-lazyload');
-      var srcAttr = cellElem.getAttribute('data-flickity-lazyload-src');
-      var srcsetAttr = cellElem.getAttribute('data-flickity-lazyload-srcset');
+      let lazyloadAttr = cellElem.getAttribute('data-flickity-lazyload');
+      let srcAttr = cellElem.getAttribute('data-flickity-lazyload-src');
+      let srcsetAttr = cellElem.getAttribute('data-flickity-lazyload-srcset');
       if ( lazyloadAttr || srcAttr || srcsetAttr ) {
         return [ cellElem ];
       }
     }
     // select lazy images in cell
-    var lazySelector = 'img[data-flickity-lazyload], ' +
+    let lazySelector = 'img[data-flickity-lazyload], ' +
       'img[data-flickity-lazyload-src], img[data-flickity-lazyload-srcset]';
-    var imgs = cellElem.querySelectorAll( lazySelector );
+    let imgs = cellElem.querySelectorAll( lazySelector );
     return utils.makeArray( imgs );
   }
   
@@ -3904,9 +3904,9 @@
     this.img.addEventListener( 'load', this );
     this.img.addEventListener( 'error', this );
     // get src & srcset
-    var src = this.img.getAttribute('data-flickity-lazyload') ||
+    let src = this.img.getAttribute('data-flickity-lazyload') ||
       this.img.getAttribute('data-flickity-lazyload-src');
-    var srcset = this.img.getAttribute('data-flickity-lazyload-srcset');
+    let srcset = this.img.getAttribute('data-flickity-lazyload-srcset');
     // set src & serset
     this.img.src = src;
     if ( srcset ) {
@@ -3931,8 +3931,8 @@
     this.img.removeEventListener( 'load', this );
     this.img.removeEventListener( 'error', this );
   
-    var cell = this.flickity.getParentCell( this.img );
-    var cellElem = cell && cell.element;
+    let cell = this.flickity.getParentCell( this.img );
+    let cellElem = cell && cell.element;
     this.flickity.cellSizeChange( cellElem );
   
     this.img.classList.add( className );
@@ -4030,19 +4030,19 @@
   
   Flickity.createMethods.push('_createAsNavFor');
   
-  var proto = Flickity.prototype;
+  let proto = Flickity.prototype;
   
   proto._createAsNavFor = function() {
     this.on( 'activate', this.activateAsNavFor );
     this.on( 'deactivate', this.deactivateAsNavFor );
     this.on( 'destroy', this.destroyAsNavFor );
   
-    var asNavForOption = this.options.asNavFor;
+    let asNavForOption = this.options.asNavFor;
     if ( !asNavForOption ) {
       return;
     }
     // HACK do async, give time for other flickity to be initalized
-    var _this = this;
+    let _this = this;
     setTimeout( function initNavCompanion() {
       _this.setNavCompanion( asNavForOption );
     });
@@ -4050,7 +4050,7 @@
   
   proto.setNavCompanion = function( elem ) {
     elem = utils.getQueryElement( elem );
-    var companion = Flickity.data( elem );
+    let companion = Flickity.data( elem );
     // stop if no companion or companion is self
     if ( !companion || companion == this ) {
       return;
@@ -4058,7 +4058,7 @@
   
     this.navCompanion = companion;
     // companion select
-    var _this = this;
+    let _this = this;
     this.onNavCompanionSelect = function() {
       _this.navCompanionSelect();
     };
@@ -4071,15 +4071,15 @@
   
   proto.navCompanionSelect = function( isInstant ) {
     // wait for companion & selectedCells first. #8
-    var companionCells = this.navCompanion && this.navCompanion.selectedCells;
+    let companionCells = this.navCompanion && this.navCompanion.selectedCells;
     if ( !companionCells ) {
       return;
     }
     // select slide that matches first cell of slide
-    var selectedCell = companionCells[0];
-    var firstIndex = this.navCompanion.cells.indexOf( selectedCell );
-    var lastIndex = firstIndex + companionCells.length - 1;
-    var selectIndex = Math.floor( lerp( firstIndex, lastIndex,
+    let selectedCell = companionCells[0];
+    let firstIndex = this.navCompanion.cells.indexOf( selectedCell );
+    let lastIndex = firstIndex + companionCells.length - 1;
+    let selectIndex = Math.floor( lerp( firstIndex, lastIndex,
       this.navCompanion.cellAlign ) );
     this.selectCell( selectIndex, false, isInstant );
     // set nav selected class
@@ -4089,7 +4089,7 @@
       return;
     }
   
-    var selectedCells = this.cells.slice( firstIndex, lastIndex + 1 );
+    let selectedCells = this.cells.slice( firstIndex, lastIndex + 1 );
     this.navSelectedElements = selectedCells.map( function( cell ) {
       return cell.element;
     });
@@ -4183,20 +4183,20 @@
   
   
   
-  var $ = window.jQuery;
-  var console = window.console;
+  let $ = window.jQuery;
+  let console = window.console;
   
   // -------------------------- helpers -------------------------- //
   
   // extend objects
   function extend( a, b ) {
-    for ( var prop in b ) {
+    for ( let prop in b ) {
       a[ prop ] = b[ prop ];
     }
     return a;
   }
   
-  var arraySlice = Array.prototype.slice;
+  let arraySlice = Array.prototype.slice;
   
   // turn element or nodeList into an array
   function makeArray( obj ) {
@@ -4205,7 +4205,7 @@
       return obj;
     }
   
-    var isArrayLike = typeof obj == 'object' && typeof obj.length == 'number';
+    let isArrayLike = typeof obj == 'object' && typeof obj.length == 'number';
     if ( isArrayLike ) {
       // convert nodeList to array
       return arraySlice.call( obj );
@@ -4228,7 +4228,7 @@
       return new ImagesLoaded( elem, options, onAlways );
     }
     // use elem as selector string
-    var queryElem = elem;
+    let queryElem = elem;
     if ( typeof elem == 'string' ) {
       queryElem = document.querySelectorAll( elem );
     }
@@ -4288,44 +4288,44 @@
   
     // find children
     // no non-element nodes, #143
-    var nodeType = elem.nodeType;
+    let nodeType = elem.nodeType;
     if ( !nodeType || !elementNodeTypes[ nodeType ] ) {
       return;
     }
-    var childImgs = elem.querySelectorAll('img');
+    let childImgs = elem.querySelectorAll('img');
     // concat childElems to filterFound array
-    for ( var i=0; i < childImgs.length; i++ ) {
-      var img = childImgs[i];
+    for ( let i=0; i < childImgs.length; i++ ) {
+      let img = childImgs[i];
       this.addImage( img );
     }
   
     // get child background images
     if ( typeof this.options.background == 'string' ) {
-      var children = elem.querySelectorAll( this.options.background );
+      let children = elem.querySelectorAll( this.options.background );
       for ( i=0; i < children.length; i++ ) {
-        var child = children[i];
+        let child = children[i];
         this.addElementBackgroundImages( child );
       }
     }
   };
   
-  var elementNodeTypes = {
+  let elementNodeTypes = {
     1: true,
     9: true,
     11: true
   };
   
   ImagesLoaded.prototype.addElementBackgroundImages = function( elem ) {
-    var style = getComputedStyle( elem );
+    let style = getComputedStyle( elem );
     if ( !style ) {
       // Firefox returns null if in a hidden iframe https://bugzil.la/548397
       return;
     }
     // get url inside url("...")
-    var reURL = /url\((['"])?(.*?)\1\)/gi;
-    var matches = reURL.exec( style.backgroundImage );
+    let reURL = /url\((['"])?(.*?)\1\)/gi;
+    let matches = reURL.exec( style.backgroundImage );
     while ( matches !== null ) {
-      var url = matches && matches[2];
+      let url = matches && matches[2];
       if ( url ) {
         this.addBackground( url, elem );
       }
@@ -4337,17 +4337,17 @@
    * @param {Image} img
    */
   ImagesLoaded.prototype.addImage = function( img ) {
-    var loadingImage = new LoadingImage( img );
+    let loadingImage = new LoadingImage( img );
     this.images.push( loadingImage );
   };
   
   ImagesLoaded.prototype.addBackground = function( url, elem ) {
-    var background = new Background( url, elem );
+    let background = new Background( url, elem );
     this.images.push( background );
   };
   
   ImagesLoaded.prototype.check = function() {
-    var _this = this;
+    let _this = this;
     this.progressedCount = 0;
     this.hasAnyBroken = false;
     // complete if no images
@@ -4388,12 +4388,12 @@
   };
   
   ImagesLoaded.prototype.complete = function() {
-    var eventName = this.hasAnyBroken ? 'fail' : 'done';
+    let eventName = this.hasAnyBroken ? 'fail' : 'done';
     this.isComplete = true;
     this.emitEvent( eventName, [ this ] );
     this.emitEvent( 'always', [ this ] );
     if ( this.jqDeferred ) {
-      var jqMethod = this.hasAnyBroken ? 'reject' : 'resolve';
+      let jqMethod = this.hasAnyBroken ? 'reject' : 'resolve';
       this.jqDeferred[ jqMethod ]( this );
     }
   };
@@ -4409,7 +4409,7 @@
   LoadingImage.prototype.check = function() {
     // If complete is true and browser supports natural sizes,
     // try to check for image status manually.
-    var isComplete = this.getIsImageComplete();
+    let isComplete = this.getIsImageComplete();
     if ( isComplete ) {
       // report based on naturalWidth
       this.confirm( this.img.naturalWidth !== 0, 'naturalWidth' );
@@ -4441,7 +4441,7 @@
   
   // trigger specified handler for event type
   LoadingImage.prototype.handleEvent = function( event ) {
-    var method = 'on' + event.type;
+    let method = 'on' + event.type;
     if ( this[ method ] ) {
       this[ method ]( event );
     }
@@ -4480,7 +4480,7 @@
     this.img.addEventListener( 'error', this );
     this.img.src = this.url;
     // check if image is already complete
-    var isComplete = this.getIsImageComplete();
+    let isComplete = this.getIsImageComplete();
     if ( isComplete ) {
       this.confirm( this.img.naturalWidth !== 0, 'naturalWidth' );
       this.unbindEvents();
@@ -4504,11 +4504,11 @@
     if ( !jQuery ) {
       return;
     }
-    // set local variable
+    // set local letiable
     $ = jQuery;
     // $().imagesLoaded()
     $.fn.imagesLoaded = function( options, callback ) {
-      var instance = new ImagesLoaded( this, options, callback );
+      let instance = new ImagesLoaded( this, options, callback );
       return instance.jqDeferred.promise( $(this) );
     };
   };
@@ -4560,7 +4560,7 @@
   
   Flickity.createMethods.push('_createImagesLoaded');
   
-  var proto = Flickity.prototype;
+  let proto = Flickity.prototype;
   
   proto._createImagesLoaded = function() {
     this.on( 'activate', this.imagesLoaded );
@@ -4570,9 +4570,9 @@
     if ( !this.options.imagesLoaded ) {
       return;
     }
-    var _this = this;
+    let _this = this;
     function onImagesLoadedProgress( instance, image ) {
-      var cell = _this.getParentCell( image.img );
+      let cell = _this.getParentCell( image.img );
       _this.cellSizeChange( cell && cell.element );
       if ( !_this.options.freeScroll ) {
         _this.positionSliderAtSelected();

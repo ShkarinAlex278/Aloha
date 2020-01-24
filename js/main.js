@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
   var elem = document.querySelector(".figure-div");
   var flkty = new Flickity(elem, {
     // options
+    wrapAround: true,
     cellAlign: "left",
     contain: true
   });
