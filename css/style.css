@@ -87,7 +87,6 @@ h3 {
 .menu-all {
   display: flex;
   flex-wrap: wrap;
-  /* flex-direction: row-reverse; */
   align-items: center;
   justify-content: space-between;
   text-align: center;
@@ -125,12 +124,6 @@ h3 {
 }
 
 .newCollection {
-  /* text-align: center;
-  width: 100%;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  padding-left: 150px; */
-
   width: 100%;
   height: 400px;
   display: flex;
@@ -139,7 +132,6 @@ h3 {
   color: azure;
   flex-direction: column;
   align-content: space-between;
-  /* padding: 5px; */
 }
 
 .newCollection h2 {
@@ -169,7 +161,6 @@ h3 {
 .head-Hand-Crafted {
   text-align: center;
   width: 80%;
-  /* padding: 0px 200px 0px 200px; */
   margin-top: 50px;
   margin-bottom: 50px;
   padding-left: 150px;
@@ -199,7 +190,6 @@ h3 {
   align-content: flex-start;
   position: relative;
   width: 100%;
-  /* width: 1250; */
   height: 610px;
 }
 
@@ -236,8 +226,6 @@ h3 {
   background-repeat: no-repeat;
   background-size: cover;
   border-style: solid;
-  /* border-width: 3px; */
-  /* border-width: 0px 0px 3px 0px; */
 }
 
 .glasses {
@@ -256,7 +244,6 @@ h3 {
   background-size: cover;
   border-style: solid;
   border-width: 3px;
-  /* border-width: 0px 0px 3px 0px; */
 }
 
 .sale {
@@ -330,17 +317,6 @@ h3 {
   font-weight: 480;
 }
 
-/* .figure-div {
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  flex-direction: row;
-  width: 100%;
-  align-content: space-between;
-  padding-bottom: 50px; */
-/* overflow-x: scroll; */
-/* } */
-
 .figure-div {
   width: 100%;
   height: 580px;
@@ -391,7 +367,6 @@ h3 {
   font-weight: 505;
   color: white;
   width: 130px;
-  /* padding: 1em 2em, 2px, 3px, 50px; */
   padding: 10px 5px;
   text-align: center;
   font-size: 16px;
@@ -417,14 +392,6 @@ https://flickity.metafizzy.co
   position: relative;
   height: 100%;
 }
-
-/* .flickity-slider {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-} */
-
-/* draggable */
 
 .flickity-enabled.is-draggable {
   -webkit-tap-highlight-color: transparent;
@@ -612,13 +579,6 @@ input[type="submit"] {
   bottom: 44px;
 }
 
-/* .mail {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-} */
-
 footer {
   background-color: #242424;
   width: 100%;
@@ -634,11 +594,8 @@ footer {
   align-items: flex-start;
   flex-direction: column;
   align-content: space-around;
-
   color: white;
-  padding-left: 50px;
-  /* padding-top: 50px;
-  padding-bottom: 50px; */
+  padding-left: 80px;
 }
 
 .address {
