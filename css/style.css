@@ -631,13 +631,14 @@ footer {
   list-style-type: none;
 }
 
-@media (min-width: 600px) {
+@media (max-width: 600px) {
   /* More then 600 px  this is for TABLET 600px*/
   /* @media screen and (min-widht: 600px) { */
   body {
     width: 97%;
     margin: 0px;
     padding: 10px;
+    /* background-color: blue; */
   }
 
   .menu-all {
@@ -783,7 +784,7 @@ footer {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 420px) {
   /* Miss then 600px This is for MOBILE*/
   /* @media screen and (min-widht: 600px) { */
   body {
