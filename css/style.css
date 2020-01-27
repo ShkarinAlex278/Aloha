@@ -630,22 +630,343 @@ footer {
   color: white;
   list-style-type: none;
 }
-/* body {
-  background: purple;
+
+@media (min-width: 600px) {
+  /* More then 600 px  this is for TABLET 600px*/
+  /* @media screen and (min-widht: 600px) { */
+  body {
+    width: 97%;
+    margin: 0px;
+    padding: 10px;
+  }
+
+  .menu-all {
+    width: 113%;
+  }
+
+  .logo {
+    width: 80px;
+  }
+
+  .menu li a {
+    padding: 3px 5px;
+  }
+
+  .cart img {
+    display: flex;
+    width: 35%;
+  }
+
+  .newCollection p {
+    font-size: 16px;
+    font-weight: 1000;
+  }
+
+  .hero-banner {
+    height: 350px;
+    background-size: cover, 130px, contain;
+  }
+
+  .head-Hand-Crafted {
+    /* text-align: center;
+    width: 100%;*/
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 45px;
+    padding-right: 5px;
+  }
+
+  .head-Hand-Crafted h2 {
+    font-size: 48px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+  }
+
+  .head-Hand-Crafted p {
+    padding-left: 3px;
+    padding-right: 3px;
+    line-height: 30pt;
+    font-size: 16px;
+  }
+
+  .shop-grid {
+    width: 100%;
+    height: 250px;
+    /* height: 285px; */
+  }
+
+  .men-category {
+    width: 49%;
+    height: 140px;
+    border-width: 2px;
+  }
+
+  .trend {
+    width: 24%;
+    height: 140px;
+    border-width: 2px;
+  }
+
+  .glasses {
+    width: 24.3%;
+    height: 140px;
+    border-width: 2px;
+  }
+
+  .sale {
+    width: 24.3%;
+    height: 140px;
+    border-width: 2px;
+  }
+
+  .bags {
+    width: 24%;
+    height: 140px;
+    border-width: 2px;
+  }
+
+  .women {
+    width: 49%;
+    height: 140px;
+    border-width: 2px;
+  }
+
+  .figure-div {
+    height: 480px;
+  }
+
+  .buttonToCart {
+    background: transparent;
+    border: none !important;
+    font-size: 0;
+  }
+
+  .flickity-page-dots {
+    bottom: 0px;
+    margin-bottom: -75px;
+    line-height: 13;
+  }
+
+  .mail {
+    height: 300px;
+    background-position: bottom 150px;
+  }
+
+  .mail p {
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+
+  input[type="email"] {
+    width: 300px;
+  }
+
+  input[type="submit"] {
+    right: -243px;
+  }
+
+  .contact {
+    padding-left: 10px;
+  }
+
+  .media {
+    padding-right: 5px;
+  }
+
+  .media ul {
+    width: 115px;
+    padding-top: 15px;
+  }
+
+  .media li {
+    height: 3.9vh;
+  }
 }
 
-figure {
-  width: 300px;
-  height: 100px;
+@media (max-width: 600px) {
+  /* Miss then 600px This is for MOBILE*/
+  /* @media screen and (min-widht: 600px) { */
+  body {
+    width: 97%;
+    /* background-color: chartreuse; */
+    margin: 0px;
+    padding: 6px;
+  }
+
+  .menu-all {
+    width: 113%;
+  }
+
+  .logo {
+    width: 80px;
+  }
+
+  .menu li a {
+    padding: 3px 5px;
+  }
+
+  .cart img {
+    display: flex;
+    width: 35%;
+  }
+
+  .newCollection p {
+    font-size: 16px;
+    font-weight: 1000;
+  }
+
+  .hero-banner {
+    height: 350px;
+    background-position: left, center 50px, center;
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-size: cover, 130px, cover;
+  }
+
+  .head-Hand-Crafted {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .head-Hand-Crafted h2 {
+    font-size: 34px;
+  }
+
+  .head-Hand-Crafted p {
+    padding-left: 10px;
+    padding-right: 15px;
+    line-height: 30pt;
+    font-size: 16px;
+  }
+
+  .shop-grid {
+    width: 100%;
+    height: 550px;
+    /* height: 285px; */
+  }
+
+  .men-category {
+    width: 100%;
+    height: 140px;
+    border-width: 2px;
+  }
+
+  .trend {
+    width: 49%;
+    height: 140px;
+    border-width: 2px;
+  }
+
+  .glasses {
+    width: 49%;
+    height: 140px;
+    border-width: 2px;
+  }
+
+  .sale {
+    width: 49%;
+    height: 140px;
+    border-width: 2px;
+  }
+
+  .bags {
+    width: 49%;
+    height: 140px;
+    border-width: 2px;
+  }
+
+  .women {
+    width: 100%;
+    height: 140px;
+    border-width: 2px;
+  }
+
+  .figure-div {
+    width: 75%;
+    height: 480px;
+    margin-left: 70px;
+  }
+
+  .buttonToCart {
+    background: transparent;
+    border: none !important;
+    font-size: 0;
+  }
+
+  .flickity-page-dots {
+    bottom: 0px;
+    margin-bottom: -75px;
+    line-height: 13;
+  }
+
+  .mail {
+    height: 350px;
+    background-position: bottom 150px;
+  }
+
+  .mail p {
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+
+  input[type="email"] {
+    width: 270px;
+  }
+
+  input[type="submit"] {
+    right: -213px;
+  }
+
+  footer {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 320px;
+  }
+
+  .contact {
+    padding-left: 10px;
+    padding-top: 50px;
+    align-items: center;
+  }
+
+  .media {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: row;
+    align-content: space-between;
+    /* padding-right: 100px; */
+  }
+
+  .media {
+    display: flex;
+    flex-direction: row;
+    padding-right: 5px;
+    display: inline;
+  }
+
+  .media ul {
+    display: flex;
+    flex-direction: row;
+  }
+
+  /* .media li 
+   {
+    background: transparent;
+    border: none !important;
+    font-size: 0;
+  } */
+
+  .media li {
+    width: 35px;
+    color: #242424;
+  }
 }
 
-figure img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-} */
-
-@media screen and (min-widht: 600px) {
+/* @media screen and (min-widht: 600px) {
   body {
     background: green;
   }
@@ -658,4 +979,4 @@ figure img {
   body {
     background: blue;
   }
-}
+} */
